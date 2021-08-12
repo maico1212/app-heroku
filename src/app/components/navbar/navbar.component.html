@@ -1,0 +1,62 @@
+<div *ngIf="auth.user | async as user">
+<header>  
+<div class="caja_navbar">
+  
+  <nav class="navbar navbar-expand-lg">
+
+    <a class="navbar-brand" routerLink="/profile" routerLinkActive="active">
+
+      <img src="../../../assets/logito.jpg" class="iconn" alt="">
+    </a>
+
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+        <img src="../../../assets/lista.png" alt="">
+
+      </span>
+    </button>
+
+    <h5 class="c tt mt-3">¡Bienvenid@ {{ user.displayName }}! </h5>
+
+    <div class="contlist">
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+
+
+        <li>
+          <!--
+          <img class="img-fluid imn" src={{user.photoURL}} alt="Image" />-->
+
+          <button class="btn btn-danger buttt" (click)="listaVoluntarios()">
+            <img src="../../../assets/vol.png" alt="" >
+            Lista de Voluntarios
+          </button>
+        </li>
+
+
+
+        <li>
+          <img class="img-fluid imn" src={{user.photoURL}} alt="Image" />
+          <button class="btn btn-danger buttt" (click)="logout()">Cerrar Sesion</button>
+        </li>
+
+
+
+
+
+      </div>
+
+    </div>
+
+  </nav>
+</div>
+</header>
+  <router-outlet></router-outlet>
+
+
+
+
+</div>

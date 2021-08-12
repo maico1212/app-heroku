@@ -1,0 +1,127 @@
+<div *ngIf="auth.user | async as user">
+
+
+ <app-navbar></app-navbar>
+
+ 
+
+ <div class="caja_lista">
+
+  
+         
+  
+      <h1 class="text-center cb">
+        Listado de Usuarios Registrados
+      </h1>
+      <table class="table table-borderless table-dark table-striped table-hover cw" id="table-ext-1">
+        <thead>
+          <tr>
+            <th>
+              <h4>UID</h4>
+            </th>
+            <th>
+              <h4>FOTO</h4>
+            </th>
+            <th>
+              <h4>NOMBRE Y APELLIDO</h4>
+            </th>
+            <th>
+              <h4>EMAIL</h4>
+            </th>
+            <th>
+              <h4>PERMISOS</h4>
+            </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of users; let i=index">
+            <td> {{ i+1 }}</td>
+            <td>
+              <div class="media">
+
+                <img class="img-fluid circle im" src={{item.photoUrl}} alt="Image" />
+
+
+
+              </div>
+            </td>
+
+            <td class="tp">
+              <p>{{ item.displayName }}</p>
+            </td>
+            <td class="tp">
+              <p>{{ item.email}}</p>
+
+
+
+            </td>
+
+            <td>
+
+
+
+              <form [formGroup]="formClaim" (ngSubmit)="actualizar(item.uid,formClaim.value)" class="form">
+                <div class="form-check">
+
+                  <input formControlName="admin" class="form-check-input" type="checkbox" id="check{{i}}">
+
+                  <label class="form-check-label" for="flexCheckDefault">
+                    <input *ngIf="item.customClaims.admin == true" checked disabled type="checkbox" />
+                    Administrador General
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input formControlName="nacional" class="form-check-input" type="checkbox"
+                    value="item.customClaims.nacional == true" id="check{{i}}">
+                  <label class="form-check-label">
+                    <input *ngIf="item.customClaims.nacional == true" checked disabled type="checkbox" />
+
+                    Coordinador Nacional
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input formControlName="regional" class="form-check-input" type="checkbox"
+                    value="item.customClaims.regional == true" id="check{{i}}">
+                  <label class="form-check-label">
+                    <input *ngIf="item.customClaims.regional == true" checked disabled type="checkbox" />
+                    Coordinador Regional
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input formControlName="diocesano" class="form-check-input" type="checkbox"
+                    value="item.customClaims.diocesano == true" id="check{{i}}">
+                  <label class="form-check-label">
+                    <input *ngIf="item.customClaims.diocesano == true" checked disabled type="checkbox" />
+                    Gestor Diocesano
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input formControlName="voluntario" class="form-check-input" type="checkbox"
+                    value="item.customClaims.voluntario == true" id="check{{i}}">
+                  <label class="form-check-label">
+                    <input *ngIf="item.customClaims.voluntario == true" checked disabled type="checkbox" />
+                    Voluntario
+                  </label>
+                </div>
+                <button mat-raised-button class="ba"> Actualizar </button>
+                &nbsp;
+
+              </form>
+              <button mat-raised-button color="warn" class="bu" (click)="eliminar(item.uid)"> Eliminar </button>
+            </td>
+
+
+          </tr>
+
+
+        </tbody>
+      </table>
+
+
+     </div>
+   
+
+  </div>
+
+

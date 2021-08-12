@@ -1,0 +1,155 @@
+<div *ngIf="auth.user | async as user">
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <div class="border-right p-3 sidebar">
+
+                    <img src="../../../assets/logito.jpg" class="iconnv" alt="">
+                    <hr>
+                    <div class="mt-5">
+
+                        <a routerLink="/profile">
+
+                            <h5 class="text-light">
+                                <img src="../../../assets/home.png" class="ihome" alt="">
+                                HOME
+                            </h5>
+
+                        </a>
+
+
+
+                        <h5 class="text-light">
+                            <img src="../../../assets/usuario.png" class="ihome" alt="">
+                            VOLUNTARIOS
+                        </h5>
+
+
+                        <h5 class="text-light">
+                            <img src="../../../assets/tarea.png" class="ihome" alt="">
+                            TAREAS
+                        </h5>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="listado col-md-9">
+               <h2 class="text-center">Lista de Voluntarios Registrados</h2>
+
+                <table class="table c mt-4">
+
+                
+                    <thead>
+                       
+                        <tr >
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre y Apellido</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Provincia</th>
+                            <th scope="col">Ciudad</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of json; index as i;">
+                            <th scope="row">{{i}}</th>
+
+                            <td>{{item.nombre}} {{item.apellido}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.telefono}}</td>
+                            <td>{{item.dni}}</td>
+                            <td>{{item.provincia}}</td>
+                            <td>{{item.residencia}}</td>
+                            <td>
+                                <img src="../../../assets/ver.png" alt="" >
+
+                                <img src="../../../assets/lapiz.png" alt="" >
+
+                                <img src="../../../assets/basura.png" alt="" >
+                            </td>
+
+                        </tr>
+                     <!--  <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>35468745</td>
+                            <td>San Juan</td>
+                            <td>Capital</td>
+                            <td>
+                                <img src="../../../assets/ver.png" alt="" >
+
+                                <img src="../../../assets/lapiz.png" alt="" >
+
+                                <img src="../../../assets/basura.png" alt="" >
+                            </td>
+
+
+                        </tr>--> 
+                        <!--
+                        <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>35468745</td>
+                            <td>San Juan</td>
+                            <td>Capital</td>
+                            <td>
+                                <img src="../../../assets/ver.png" alt="" >
+
+                                <img src="../../../assets/lapiz.png" alt="" >
+
+                                <img src="../../../assets/basura.png" alt="" >
+                            </td>
+                        </tr>-->
+                        
+                         <!--
+                        <tr>
+                            <th scope="row">3</th>
+                            <td colspan="2">Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>35468745</td>
+                            <td>San Juan</td>
+                            <td>Capital</td>
+                            <td>
+                                <img src="../../../assets/ver.png" alt="" >
+
+                                <img src="../../../assets/lapiz.png" alt="" >
+
+                                <img src="../../../assets/basura.png" alt="" >
+                            </td>
+                        </tr>-->
+                    </tbody>
+                </table>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <router-outlet></router-outlet>
+
+</div>

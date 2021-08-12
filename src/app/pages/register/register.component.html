@@ -1,0 +1,395 @@
+<div class="row">
+
+  <div class="col-6">
+    <div class="card">
+      <div class="contlist">
+        <img src="../../../assets/logito.jpg" alt="" class="is hn mt-1">
+        <h1 class="card-title ca">#YoMeSumo</h1>
+      </div>
+
+      <img *ngIf="step == 1" src="../../../assets/primero.jpg" class="img-fluid" alt="...">
+      <img *ngIf="step == 2" src="../../../assets/segundo.JPG" class="img-fluid" alt="...">
+      <img *ngIf="step == 3" src="../../../assets/tercero.jpg" class="img-fluid" alt="...">
+      <img *ngIf="step == 4" src="../../../assets/cuarto.jpg" class="img-fluid" alt="...">
+      <img *ngIf="step == 5" src="../../../assets/quinto.jpg" class="img-fluid" alt="...">
+
+    </div>
+  </div>
+
+
+
+
+  <div class="col-6">
+    <form [formGroup]="personalDetails" class="c" id="msform" (ngSubmit)="enviar()">
+      <!-- progressbar -->
+      <ul id="progressbar" class="c">
+        <li [ngClass]="step>=1 ? 'active ' : 'inactive'">Datos Principales</li>
+        <li [ngClass]="step>=2 ? 'active' : 'inactive'">Residencia</li>
+        <li [ngClass]="step>=3 ? 'active' : 'inactive'">Preguntas</li>
+        <li [ngClass]="step>=4 ? 'active' : 'inactive'">Tipo de Experiencia</li>
+        <li [ngClass]="step==5 ? 'active' : 'inactive'">Disponibilidad</li>
+
+      </ul>
+
+
+      <!-- fieldsets -->
+      <fieldset *ngIf="step == 1">
+
+        <h2 class="fs-title">Datos Principales</h2>
+
+        <div class="contenido_input mt-4">
+
+
+          <input type="text" formControlName="nombre"
+            [ngClass]="{ 'is-invalid': personal_step && personal.name.errors }" placeholder="Nombre" />
+
+          <input type="text" formControlName="apellido" name="apellido" placeholder="Apellido" />
+
+
+        </div>
+
+        <div class="contenido_input mt-4">
+          <input type="number" formControlName="dni" name="dni" placeholder="DNI" />
+          <input class="calend" type="date" formControlName="nacimiento" name="nacimiento" placeholder="Nacimiento" />
+        </div>
+
+
+
+        <div class="contenido_input mt-4">
+          <input type="text" formControlName="telefono" name="telefono" placeholder="Telefono" />
+          <input type="text" formControlName="email" name="email" placeholder="Email" />
+        </div>
+
+        <div class="contenido_but">
+          <input (click)="next()" type="button" name="next" class="next action-button mt-4" value="Siguiente" />
+        </div>
+      </fieldset>
+    </form>
+
+
+
+
+
+
+
+    <form [formGroup]="addressDetails" id="msform" (ngSubmit)="enviar()">
+
+      <fieldset *ngIf="step == 2">
+        <h2 class="fs-title">Residencia</h2>
+
+        <div class="contenido_input">
+
+
+          <div class="contenido_select">
+
+            <select name="provincia" formControlName="provincia">
+              <option value="">Seleccionar Provincia</option>
+              <option value="Buenos Aires">Buenos Aires</option>
+              <option value="Cordoba">Cordoba</option>
+              <option value="San Juan">San Juan</option>
+              <option value="Mendoza">Mendoza</option>
+              <option value="La Rioja">La Rioja</option>
+              <option value="San Luis">San Luis</option>
+              <option value="La Rioja">La Rioja</option>
+              <option value="Chubut">Chubut</option>
+              <option value="Tierra del Fuego">Tierra del Fuego</option>
+              <option value="Neuquén">Neuquen</option>
+              <option value="Santa Cruz">Santa Cruz</option>
+              <option value="La Pampa">La Pampa</option>
+              <option value="Jujuy">Jujuy</option>
+              <option value="Formosa">Formosa</option>
+              <option value="Chaco">Chaco</option>
+              <option value="Santiago del Estereo">Santiago del Estereo</option>
+              <option value="Catamarca">Catamarca</option>
+              <option value="Tucuman">Tucuman</option>
+              <option value="Jujuy">Jujuy</option>
+              <option value="Salta">Salta</option>
+
+
+            </select>
+          </div>
+
+          <input type="text" formControlName="residencia" placeholder="Ciudad de Residencia" />
+
+        </div>
+
+        <div class="contenido_input">
+          <input type="text" formControlName="direccion" placeholder="Direccion (Calle y Num)" />
+
+
+
+          <input type="text" formControlName="ocupacion" placeholder="Ocupacion" />
+
+
+        </div>
+
+        <div class="contenido_but">
+
+          <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+            value="Atrás" />
+          <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
+        </div>
+      </fieldset>
+    </form>
+
+    <form [formGroup]="preguntasDetails" id="msform" (ngSubmit)="enviar()">
+      <fieldset *ngIf="step == 3">
+
+        <h2 class="fs-title">Preguntas</h2>
+
+        <p>¿Te encontras dentro de algun grupo de riesgo o convivis con personas que si lo estan?</p>
+
+
+
+
+        <label class="md-check p-1">
+          Sí
+          <input type="radio" value=true name="riesgo" formControlName="riesgo">
+
+          No
+          <input type="radio" value=false name="riesgo" formControlName="riesgo">
+
+        </label>
+
+
+
+
+
+        <label>¿Perteneces a algún movimiento, organizacion o pastoral eclesial o social?¿Cuál?</label>
+
+
+
+
+        <label class="md-check">
+          Sí
+          <input type="radio" value=true name="movimiento" formControlName="movimiento">
+
+
+          No
+          <input type="radio" value=false name="movimiento" formControlName="movimiento">
+
+
+        </label>
+
+        <input class="cua" type="text" formControlName="agrupacion" placeholder="¿Cuál?" />
+
+
+
+
+
+        <label>¿Tiene alguna enfermedad crónica o estas realizando algún tratamiento médico?</label>
+
+
+        <label class="md-check">
+          Sí
+          <input type="radio" value=true name="enfermedad" formControlName="enfermedad">
+          No
+
+          <input type="radio" value=false name="enfermedad" formControlName="enfermedad">
+
+        </label>
+
+
+
+        <label>¿Tiene cobertura médica?</label>
+
+        <label class="md-check">
+          Sí
+          <input type="radio" value=true name="cobertura" formControlName="cobertura">
+
+          No
+          <input type="radio" value=false name="cobertura" formControlName="cobertura">
+
+        </label>
+
+
+
+
+
+
+
+
+        <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+          value="Atrás" />
+        <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
+      </fieldset>
+    </form>
+
+
+
+
+
+
+
+    <form [formGroup]="empleadoDetails" id="msform" (ngSubmit)="enviar()">
+      <fieldset *ngIf="step == 4">
+        <h2 class="fs-title">Tipo de Experiencia</h2>
+
+
+
+
+
+        <p>¿Que tipo de experiencia de voluntariado te gustaria realizar?</p>
+
+        <label class="md-checkp">
+
+
+          <p>
+            #CercaniaVirtual: Algunas de las posibles acciones tienen que ver con una
+            #CercaniaVitual, es decir, son acciones que pueden realizarse desde casa y
+            desde la virtualidad.
+          </p>
+          <input type="radio" value="CercaniaVirtual" name="experiencia" formControlName="experiencia">
+
+
+          <p>
+            #PresenciaTerritorial: Otras de las posibles acciones corresponden a una
+            #PresenciaTerritorial, es decir, que se propone una acción en algún lugar
+            donde se dará un encuentro con distintas personas.
+          </p>
+
+          <input type="radio" value="PresenciaTerritorial" name="experiencia" formControlName="experiencia">
+
+        </label>
+
+
+
+
+        <label>¿Cuentas con movilidad propia?</label>
+
+        <label class="md-check">
+          <input type="radio" value=true name="movilidad" formControlName="movilidad">
+          Sí
+
+          <input type="radio" value=false name="movilidad" formControlName="movilidad">
+          No
+        </label>
+
+
+
+
+
+        <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+          value="Previous" />
+        <input (click)="next()" type="button" name="next" class="next action-button" value="Next" />
+      </fieldset>
+    </form>
+
+
+
+
+    <form [formGroup]="educationalDetails" id="msform" (ngSubmit)="enviar()">
+      <fieldset *ngIf="step == 5">
+        <h2 class="fs-title">Disponibilidad</h2>
+
+        <div class="contenido_preg">
+
+          <div class="contenido_select">
+            <label>Lunes</label>
+            <select name="lunes" formControlName="lunes">
+
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+          <div class="contenido_select">
+            <label>Martes</label>
+            <select name="martes" formControlName="martes">
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+          <div class="contenido_select">
+            <label>Miercoles</label>
+            <select name="miercoles" formControlName="miercoles">
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+          <div class="contenido_select">
+            <label>Jueves</label>
+            <select name="jueves" formControlName="jueves">
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+          <div class="contenido_select">
+            <label>Viernes</label>
+            <select name="viernes" formControlName="viernes">
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+          <div class="contenido_select">
+            <label>Sábado</label>
+            <select name="viernes" formControlName="sabado">
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+          <div class="contenido_select">
+            <label>Domingo</label>
+            <select name="viernes" formControlName="domingo">
+
+              <option value="UNA_HORA">1 Hs</option>
+              <option value="DOS_HORAS">2 Hs</option>
+              <option value="TRES_HORAS">3 Hs</option>
+              <option value="CUATRO_HORAS">4 Hs</option>
+              <option value="MAS_DE_4_HORAS">+4Hs</option>
+              <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+            </select>
+          </div>
+
+        </div>
+
+
+
+        <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
+          value="Atrás" />
+        <input (click)="submit()" type="submit" name="submit" class="submit action-button" value="Enviar" />
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<router-outlet></router-outlet>

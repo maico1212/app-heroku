@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angularauth-27d98": {
+      "hosting": {
+        "desaf": [
+          "angularauth-27d98"
+        ]
+      }
+    }
+  }
+}

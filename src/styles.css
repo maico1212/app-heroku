@@ -1,0 +1,490 @@
+body{
+  background-color: rgb(42, 44, 143);
+}
+
+.caja_lista{
+  width: 100%;
+  position: absolute;
+  margin-left: -116px;
+  margin-top: 100px;
+}
+
+.caja_navbar{
+  position: absolute;
+  width: 100%;
+  margin-top: -48px;
+  margin-left: -11px;
+}
+
+
+
+img{
+  border: 0;
+  background-image: none;
+}
+
+.sidebar{
+  position: absolute;
+    height: 100%;
+    min-height: 100vh;
+    width: 15%;
+    margin-left: -136px;
+    margin-top: -50px;
+    background-color: rgb(22, 22, 126);
+}
+
+.ca{
+  color: blue;
+}
+.cb{
+    color: white;
+}
+.c{
+    color: rgb(0, 0, 0);
+}
+.cw{
+    color: rgb(255, 255, 255);
+}
+
+
+.iconn{
+    width: 100px;
+    height: 100px;
+  
+}
+
+.iconnv{
+  width: 100px;
+  height: 100px;
+  border-radius: 25px;
+  margin-left: 30px;
+  margin-top: 50px;
+ background-color: white;
+ background-image: none;
+}
+
+.ihome{
+  background-color: white;
+}
+
+hr{
+    background-color: rgb(0, 0, 0);
+}
+
+header{
+  background-color: rgb(255, 255, 255);
+  
+}
+
+.listado{
+   position: absolute;
+   background-color: rgb(255, 255, 255);
+   width: 1157px;
+   margin-left: 82px;
+   margin-top: -47px;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.img-fluid {
+  max-width: 100%;
+ border-radius: 0px;
+ height: 800px;
+ border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  
+}
+
+.sub{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 14, 78);
+    border: solid 2px white;
+    border-radius: 10px;
+    width: 350px;
+    height: 400px;
+}
+
+.buttt{
+    margin-right: 15px;
+}
+
+.navbar{
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  list-style: none;
+  width: 1357px;
+  height: 148px;
+  margin-left: -116px;
+}
+
+
+.navbar-toggler{
+    background-color: rgb(255, 255, 255);
+}
+
+.fuente{
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: x-large;
+    
+}
+
+.mat-raised-button{
+    width: 150px;
+    height: 60px;
+}
+
+.im{
+    border-radius: 150px;
+    width: 90px;
+    height: 90px;
+}
+
+.imn{
+    border-radius: 150px;
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+}
+
+.t{
+    font-size:large;
+    color: red;
+}
+
+.tt{
+    font-size: x-large;
+}
+
+
+/**********/
+  .butini{
+    width: 150px;
+    height: 45px;
+  }
+
+  .butinif{
+    width: 100px;
+    height: 36px;
+  }
+  
+  .bu{
+     
+      width: 100px;
+      height: 40px;
+  }
+
+.is{
+    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+}
+
+.tp{
+    font-size: x-large;
+}
+
+.ba{
+    color: rgb(255, 255, 255);
+    width: 100px;
+      height: 40px;
+    background-color: rgb(2, 93, 14);
+}
+
+.contlist{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    height: 180px;
+}
+
+.hn{
+  width: 90px;
+  height: 90px;
+}
+
+
+.contenido_input{
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.contenido_select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: 50px;
+
+}
+.filea_radio{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+select{
+  border-radius: 5px;
+  margin: 10px;
+  height: 30px;
+  border: solid 1px black;
+}
+
+.contenido{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 577px;
+    
+}
+
+.card{
+  width: 550px;
+  height: 608px;
+  border-radius: 15px;
+   margin-top: 30px;
+}
+
+/*
+.contenido_preg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}*/
+
+.contenido_but{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px;
+}
+
+
+@media (min-width: 992px){
+.navbar-expand-lg {
+    justify-content: space-between;
+    
+}
+}
+
+
+button{
+    margin: 13px;
+  }
+
+  .fontvirtual{
+      font-size:small;
+  }
+
+.contenido_input_calend{
+  height: 100px;
+  border-radius: 40px;
+}
+
+
+/*FORMULARIO STEP*/
+
+#msform {
+ 
+  margin-top: 30px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+
+
+
+#msform fieldset {
+  background: rgb(255, 255, 255);
+  border: 0 none;
+  border-radius: 0px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  height: 515px;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0%;
+  margin-top: -30px;
+  height: 493px;
+  /*stacking fieldsets above each other*/
+  position: relative;
+}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+  display: none;
+}
+/*inputs*/
+#msform input, #msform textarea {
+  padding: 15px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  margin: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #2C3E50;
+  font-size: 18px;
+}
+#msform .calend{
+  border-radius: 30px;
+  width: 350px;
+}
+
+#msform .cua{
+  width: 140px;
+  height: 32px;
+}
+
+
+#msform input:focus, #msform textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #ee0979;
+  outline-width: 0;
+  transition: All 0.5s ease-in;
+  -webkit-transition: All 0.5s ease-in;
+  -moz-transition: All 0.5s ease-in;
+  -o-transition: All 0.5s ease-in;
+}
+/*buttons*/
+#msform .action-button {
+  width: 100px;
+  background: #af1717;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+}
+#msform .action-button-previous {
+  width: 100px;
+  background: #9090ec;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+}
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+}
+/*headings*/
+.fs-title {
+
+  font-size: 18px;
+  
+  color: #000000;
+  margin-bottom: 10px;
+  
+  font-weight: bold;
+}
+.fs-subtitle {
+  font-weight: normal;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  height: 115px;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+}
+#progressbar li {
+  list-style-type: none;
+  color: rgb(0, 0, 0);
+  font-size: 13px;
+  width: 16.33%;
+  float: left;
+  position: relative;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+#progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  display: block;
+  font-size: 12px;
+  color: rgb(126, 11, 11);
+  background: white;
+  border-radius: 25px;
+  margin: 0 auto 10px auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: white;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+  background: #bd1717;
+  color: rgb(255 255 255);
+  text-align: center;
+}
+#progressbar li.inactive:before{
+  background: rgb(241, 219, 185);
+  color: #000;
+  text-align: center;
+
+}
+
+.md-check{
+
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   width: 125px;
+
+}
+
+md-checkp{
+  display: flex;
+
+}
+
