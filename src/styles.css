@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(42, 44, 143);
+  background-color:  rgb(10, 10, 104);
 }
 
 .caja_lista{
@@ -16,8 +16,6 @@ body{
   margin-left: -11px;
 }
 
-
-
 img{
   border: 0;
   background-image: none;
@@ -30,9 +28,25 @@ img{
     width: 15%;
     margin-left: -136px;
     margin-top: -50px;
-    background-color: rgb(22, 22, 126);
+    background-color: rgb(10, 10, 104);
 }
 
+.busc{
+  position: absolute;
+  margin-top: -60px;
+  margin-left: 600px;
+}
+
+ .buto{
+   margin-left: -80px;
+  border-radius: 14px;
+  height: 40px;
+  width: 250px;
+}
+.inputss{
+  margin-top: 50px;
+  
+}
 .ca{
   color: blue;
 }
@@ -46,6 +60,13 @@ img{
     color: rgb(255, 255, 255);
 }
 
+.cr{
+  color: #fa0202;
+}
+
+.pef{
+  margin-top: 230px;
+}
 
 .iconn{
     width: 100px;
@@ -56,9 +77,8 @@ img{
 .iconnv{
   width: 100px;
   height: 100px;
-  border-radius: 25px;
   margin-left: 30px;
-  margin-top: 50px;
+  margin-top: 15px;
  background-color: white;
  background-image: none;
 }
@@ -77,10 +97,9 @@ header{
 }
 
 .listado{
-   position: absolute;
-   background-color: rgb(255, 255, 255);
-   width: 1157px;
-   margin-left: 82px;
+ 
+   width: 600px;
+   margin-left: 380px;
    margin-top: -47px;
 }
 
@@ -122,11 +141,19 @@ header{
   background-color: rgb(255, 255, 255);
   list-style: none;
   width: 1357px;
-  height: 148px;
+  height: 110px;
   margin-left: -116px;
 }
-
-
+.font_dis{
+  font-size: medium;
+}
+.cm{
+  background-color: rgb(22, 22, 126);
+}
+.isidenav{
+  width: 100%;
+  height: 561px;
+}
 .navbar-toggler{
     background-color: rgb(255, 255, 255);
 }
@@ -142,6 +169,11 @@ header{
     width: 150px;
     height: 60px;
 }
+.buti {
+  margin-left: 40px;
+  width: 220px;
+    height: 40px;
+}
 
 .im{
     border-radius: 150px;
@@ -155,6 +187,12 @@ header{
     height: 55px;
     margin-right: 10px;
 }
+.imodal{
+  border-radius: 150px;
+  width: 55px;
+  height: 55px;
+  margin-right: 10px; 
+}
 
 .t{
     font-size:large;
@@ -163,8 +201,54 @@ header{
 
 .tt{
     font-size: x-large;
+    margin-left: 550px;
 }
 
+.modal{
+  margin-left: 420px;
+}
+.mpreg{
+  margin-left: 0px;
+  
+}
+
+.clabel{
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+
+.lapiz{
+  margin-top: -70px;
+  margin-left: -1px;
+}
+.reg{
+  margin-top: -32px;
+  margin-left: 210px;
+}
+.chec{
+  color: #2fe45c;
+  margin-top: -26px;
+  margin-left: 235px;
+}
+.tar{
+  margin-top: -23px;
+  margin-left: 280px;
+}
+.war{
+  color: rgb(252, 72, 72);
+  margin-top: -23px;
+  margin-left: 310px;
+}
+
+.modal-header{
+  background-color: rgb(75, 75, 231);
+}
+.contbut{
+  display: flex;
+  flex-direction: column;
+}
 
 /**********/
   .butini{
@@ -172,13 +256,17 @@ header{
     height: 45px;
   }
 
+  .modal-header .btn-close {
+    padding: .5rem .5rem;
+    margin: -.5rem -0.5rem 3.8rem auto;
+}
   .butinif{
     width: 100px;
     height: 36px;
   }
   
   .bu{
-     
+      
       width: 100px;
       height: 40px;
   }
@@ -191,7 +279,7 @@ header{
 }
 
 .tp{
-    font-size: x-large;
+    font-size:large;
 }
 
 .ba{
@@ -202,11 +290,14 @@ header{
 }
 
 .contlist{
+   
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
-    height: 180px;
+    height: 110px;
+    
+    padding: 30px;
 }
 
 .hn{
@@ -238,10 +329,33 @@ header{
 }
 
 select{
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 10px;
-  height: 30px;
+  height: 48px;
   border: solid 1px black;
+  margin-left: -40px;
+  width: 210px;
+}
+
+.se{
+  border-radius: 10px;
+  margin: 10px;
+  height: 29px;
+  border: solid 1px black;
+  margin-left: -5px;
+  width: 200px;
+
+}
+
+
+ .sp{
+  
+  border-radius: 10px;
+  margin: 10px;
+  height: 29px;
+  border: solid 1px black;
+  margin-left: -25px;
+  width: 150px;
 }
 
 .contenido{
@@ -252,6 +366,7 @@ select{
     width: 577px;
     
 }
+
 
 .card{
   width: 550px;
@@ -269,12 +384,49 @@ select{
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
 }*/
+.texts{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
 
-.contenido_but{
+.button_uno{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 10px;
+    margin-top: 66px;
+}
+
+.button_dos{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 221px;
+
+}
+
+.button_tres{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 54px;
+
+}
+
+.button_cuatro{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 58px;
+
+}
+
+.button_cinco{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -18px;
+
 }
 
 
@@ -310,9 +462,6 @@ button{
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
 }
-
-
-
 
 #msform fieldset {
   background: rgb(255, 255, 255);
@@ -355,6 +504,7 @@ button{
 #msform .cua{
   width: 140px;
   height: 32px;
+  margin-top: 0px;
 }
 
 
@@ -362,7 +512,7 @@ button{
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid #ee0979;
+  border: 1px solid #8e8aa7;
   outline-width: 0;
   transition: All 0.5s ease-in;
   -webkit-transition: All 0.5s ease-in;
@@ -473,18 +623,85 @@ button{
   text-align: center;
 
 }
+.tipr{
+
+  margin-left: -110px;
+  margin-top: 4px;
+
+}
+.tip{
+  margin-left: -90px;
+  margin-top: 4px;
+}
+.md-c{
+  display: flex;
+  flex-direction: row;
+  width: 261px;
+}
+.md-roweapr{
+  display: flex;
+  flex-direction: row;
+ margin-left: -105px;
+}
+
+.md-rowea{
+  display: flex;
+  flex-direction: row;
+ margin-left: -85px;
+}
 
 .md-check{
 
    display: flex;
    flex-direction: row;
    justify-content: center;
-   width: 125px;
+   width: 99px;
 
 }
 
-md-checkp{
-  display: flex;
-
+.mat-sidenav-container{
+  background-color: #0c0044;
 }
 
+#sidenav{
+  background-color: #0c0044;
+}
+
+.bmat{
+  background-color:rgb(22, 22, 126);
+}
+
+
+.mat-card{
+  background-color: #d6cece;
+  margin-top: -10px;
+  margin-left: 880px;
+  width: 350px;
+  height: 600px;
+}
+.mat-card-header{
+  height: 100px;
+  background-color: rgb(94, 94, 182);
+}
+
+.table{
+  background-color: rgb(255, 255, 255);
+  width: 1150px;
+  margin-left: -309px;
+  margin-top: 15px;
+  color: rgb(0, 0, 0);
+}
+.tabler{
+  width: 500px;
+}
+
+
+.matsiv{
+  position: absolute;
+    height: 100%;
+    min-height: 100vh;
+    width: 15%;
+    margin-left: -136px;
+    margin-top: 62px;
+    background-color: rgb(22, 22, 126);
+}

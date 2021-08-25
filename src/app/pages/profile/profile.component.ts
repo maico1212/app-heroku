@@ -15,72 +15,73 @@ import Swal from 'sweetalert2'
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  users : any;
+  users: any;
   uid: any;
-  
+
   formClaim = new FormGroup({
-    
-   admin: new FormControl (false),
-   nacional: new FormControl (false),
-   regional: new FormControl (false),
-   diocesano: new FormControl (false),
-   voluntario: new FormControl (false),
-   
+
+    admin: new FormControl(false),
+    nacional: new FormControl(false),
+    regional: new FormControl(false),
+    diocesano: new FormControl(false),
+    voluntario: new FormControl(false),
+
   })
-constructor(
+  constructor(
     public auth: AngularFireAuth,
     public user: UsersService
 
-    ) { 
+  ) {
 
-      this.user_point();
-    }
+    this.user_point();
+  }
 
   ngOnInit() {
 
   }
 
-  user_point()
-  { 
+  user_point() {
     firebase.auth().currentUser?.getIdTokenResult()
-    .then((idTokenResult)=>{ this.user.findAll(idTokenResult.token).subscribe(
-      (responseUser: any) =>
-     {
-      
-        this.users= responseUser;
-      
-    }
-    ),
-      ( error: any) => {
-      console.log(error);
-      /*siempre crear error, para el endpoint */
-    }})
-   
+      .then((idTokenResult) => {
+        this.user.findAll(idTokenResult.token).subscribe(
+          (responseUser: any) => {
+
+            this.users = responseUser;
+
+          }
+        ),
+        (error: any) => {
+          console.log(error);
+          /*siempre crear error, para el endpoint */
+        }
+      })
+
   }
 
 
-  actualizar(uid: any,dato:any){
-    
+  actualizar(uid: any, dato: any) {
+
     firebase.auth().currentUser?.getIdTokenResult()
-    .then((idTokenResult)=>{
+      .then((idTokenResult) => {
 
-      this.user.setClaims(idTokenResult.token,uid,dato).subscribe(resp => {
+        this.user.setClaims(idTokenResult.token, uid, dato).subscribe(resp => {
 
-        Swal.fire('¡Permisos actualizados!', '','success');
-      },
-      error => {
-        Swal.fire('¡Hubo un error!', '', 'success');
+          Swal.fire('¡Permisos actualizados!', '', 'success');
+        },
+          error => {
+            Swal.fire('¡Hubo un error!', '', 'success');
+          }
+        )
       }
-      )}
       )
-     
-   
+
+
   }
 
 
 
 
-  eliminar(uid: any){
+  eliminar(uid: any) {
     Swal.fire({
       title: '¿Estas seguro que desea eliminar este usuario?',
       text: "¡No podras revertir esto!",
@@ -90,34 +91,35 @@ constructor(
       denyButtonText: `Cancelar`,
     }).then((result) => {
 
-      if (result.isConfirmed ) 
+      if (result.isConfirmed)
 
-      firebase.auth().currentUser?.getIdTokenResult()
-    .then((idTokenResult)=>{
+        firebase.auth().currentUser?.getIdTokenResult()
+          .then((idTokenResult) => {
 
-      this.user.delete(idTokenResult.token,uid).subscribe(resp => {
+            this.user.delete(idTokenResult.token, uid).subscribe(resp => {
 
-        Swal.fire('¡Usuario Eliminado!', '','success');
-      },
+              Swal.fire('¡Usuario Eliminado!', '', 'success');
+            },
+              error => {
+                Swal.fire('¡Hubo un error!', '', 'success');
+              }
+            )
+          }
+          )
+
+    },
       error => {
         Swal.fire('¡Hubo un error!', '', 'success');
+
       }
-      )}
-      )
-        
-  },
-  error => {
-    Swal.fire('¡Hubo un error!', '', 'success');
 
-  }
-  
-  )
-      
-  
+    )
+
+
 
   }
 
-  
+
 
 }
 

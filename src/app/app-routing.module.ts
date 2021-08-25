@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { AngularFireAuthGuard } from "@angular/fire/auth-guard";
 import { Routes, RouterModule } from "@angular/router";
 import { FormComponent } from "./components/form/form.component";
 import { AuthGuard } from "./guards/auth.guard";

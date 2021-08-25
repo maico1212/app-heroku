@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import Swal from 'sweetalert2';
@@ -19,7 +19,9 @@ import { VoluntariosService } from 'src/app/services/voluntarios.service';
  
 })
 export class RegisterComponent implements OnInit {
-   
+  
+  public authorities: FormArray;
+
   personalDetails: FormGroup;
   addressDetails: FormGroup;
   empleadoDetails: FormGroup;
@@ -38,7 +40,10 @@ export class RegisterComponent implements OnInit {
     
     public voluntariosService: VoluntariosService,
     
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder
+    
+    
+    ) {
 
     
 
@@ -75,6 +80,7 @@ export class RegisterComponent implements OnInit {
           movilidad: ['', Validators.required]
        
       });
+      
         this.educationalDetails = this.formBuilder.group({
             lunes: ['', Validators.required],
             martes: ['', Validators.required],
@@ -88,10 +94,11 @@ export class RegisterComponent implements OnInit {
        
   }
   get personal() {  return this.personalDetails.controls; }
+  get address() { return this.addressDetails.controls; }
   get education() { return this.educationalDetails.controls; }
    get empleado() { return this.empleadoDetails.controls;}
    get preguntas(){ return this.empleadoDetails.controls;}
-  get address() { return this.addressDetails.controls; }
+  
  
   
   next(){
@@ -134,7 +141,7 @@ export class RegisterComponent implements OnInit {
 
   submit(){
     if(this.step==5){
-      this.education_step = true;
+      this.education_step = false;
       if (this.educationalDetails.invalid) { return }
     }
   }
@@ -143,17 +150,12 @@ export class RegisterComponent implements OnInit {
    datos: any;
 
   enviar(){
- 
-
-    
 
     this.datos = Object.assign(this.personalDetails.value,this.addressDetails.value,this.preguntasDetails.value,this.empleadoDetails.value,this.educationalDetails.value);
   
   
     console.log(this.datos);
     
-    
-  
      
     this.voluntariosService.create(this.datos).subscribe((response)=>{
       Swal.fire('¡Gracias por inscribirte, en breve te mandaremos más información a tu email!', '','success');

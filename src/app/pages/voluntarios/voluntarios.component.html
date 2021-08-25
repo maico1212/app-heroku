@@ -4,136 +4,413 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-4">
 
                 <div class="border-right p-3 sidebar">
+                    
+                      <img src="../../../assets/logito.jpg" class="iconnv" alt="">
 
-                    <img src="../../../assets/logito.jpg" class="iconnv" alt="">
-                    <hr>
-                    <div class="mt-5">
+                            <mat-nav-list class="text-center c mt-1">
 
-                        <a routerLink="/profile">
+                                <a routerLink="/profile" mat-list-item>
 
-                            <h5 class="text-light">
-                                <img src="../../../assets/home.png" class="ihome" alt="">
-                                HOME
-                            </h5>
+                                    <mat-icon mat-list-icon class="cb">home </mat-icon>
+                                    <span class="cb">HOME</span>
 
-                        </a>
+                                </a>
+
+                                <a mat-list-item>
+
+                                    <mat-icon mat-list-icon class="cb">person</mat-icon>
+                                    <span class="cb">VOLUNTARIOS</span>
+
+                                </a>
+
+                                <a mat-list-item>
+
+                                    <mat-icon mat-list-icon class="cb">feed</mat-icon>
+                                    <span class="cb">TAREAS</span>
+
+                                </a>
+
+                                <a mat-list-item class="pef">
+
+                                    <mat-icon mat-list-icon class="cb">person</mat-icon>
+                                    <span class="cb">PERFIL</span>
+                  
+                                  </a>
+
+                            </mat-nav-list>
 
 
 
-                        <h5 class="text-light">
-                            <img src="../../../assets/usuario.png" class="ihome" alt="">
-                            VOLUNTARIOS
-                        </h5>
 
-
-                        <h5 class="text-light">
-                            <img src="../../../assets/tarea.png" class="ihome" alt="">
-                            TAREAS
-                        </h5>
-
-
-
-                    </div>
 
                 </div>
-
             </div>
 
-
-
-            <div class="listado col-md-9">
-               <h2 class="text-center">Lista de Voluntarios Registrados</h2>
-
-                <table class="table c mt-4">
-
+            <div class="listado col-md-8 mt-5">
                 
-                    <thead>
-                       
-                        <tr >
-                            <th scope="col">#</th>
+                <form class="form-inline busc">
+                    <input class="buto mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+               
+                    <button mat-stroked-button class="cb">
+                     <mat-icon>search</mat-icon></button>
+                </form>
+
+
+                <table class="table table-borderless">
+
+
+                    <thead class="c">
+
+                        <tr>
+                            <th scope="col">ID</th>
                             <th scope="col">Nombre y Apellido</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Telefono</th>
                             <th scope="col">DNI</th>
                             <th scope="col">Provincia</th>
                             <th scope="col">Ciudad</th>
-                            <th scope="col">Operaciones</th>
+
                         </tr>
 
                     </thead>
-                    <tbody>
+                    <tbody class="c">
                         <tr *ngFor="let item of json; index as i;">
-                            <th scope="row">{{i}}</th>
+                            <th scope="row">{{i+1}}</th>
+                            <!-- Button trigger modal -->
 
-                            <td>{{item.nombre}} {{item.apellido}}</td>
+
+                            <td> <a data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    (click)="voluntar(item.id)">{{item.nombre}}
+                                    {{item.apellido}}</a> </td>
+
                             <td>{{item.email}}</td>
                             <td>{{item.telefono}}</td>
                             <td>{{item.dni}}</td>
                             <td>{{item.provincia}}</td>
                             <td>{{item.residencia}}</td>
-                            <td>
-                                <img src="../../../assets/ver.png" alt="" >
 
-                                <img src="../../../assets/lapiz.png" alt="" >
 
-                                <img src="../../../assets/basura.png" alt="" >
-                            </td>
 
                         </tr>
-                     <!--  <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>35468745</td>
-                            <td>San Juan</td>
-                            <td>Capital</td>
-                            <td>
-                                <img src="../../../assets/ver.png" alt="" >
 
-                                <img src="../../../assets/lapiz.png" alt="" >
+                        <!------------------------------MODAL PRINCIPAL----------------------------------->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true" *ngIf="volunt">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header c">
+                                        <img class="img-fluid imodal" src="../../../assets/logito.jpg" alt="Image" />
+                                        <div class="texts">
+                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                            <h5 class="cb">{{volunt.nombre}},{{volunt.apellido}}</h5>
 
-                                <img src="../../../assets/basura.png" alt="" >
-                            </td>
+                                            <h5 class="cb">San Juan, Argentina</h5>
+
+                                            <mat-icon class="cb reg" mat-list-icon>domain</mat-icon>
+                                            <mat-icon class="cb chec" mat-list-icon>check</mat-icon>
+
+                                            <mat-icon class="cb tar" mat-list-icon>assignment</mat-icon>
+                                            <mat-icon class="cb war" mat-list-icon>warning</mat-icon>
+
+                                        </div>
+
+                                        <mat-icon data-bs-toggle="modal" data-bs-target="#modaleditar" class="cb lapiz"
+                                            mat-list-icon (click)="editar()">create</mat-icon>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
 
 
-                        </tr>--> 
-                        <!--
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>35468745</td>
-                            <td>San Juan</td>
-                            <td>Capital</td>
-                            <td>
-                                <img src="../../../assets/ver.png" alt="" >
 
-                                <img src="../../../assets/lapiz.png" alt="" >
 
-                                <img src="../../../assets/basura.png" alt="" >
-                            </td>
-                        </tr>-->
-                        
-                         <!--
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>35468745</td>
-                            <td>San Juan</td>
-                            <td>Capital</td>
-                            <td>
-                                <img src="../../../assets/ver.png" alt="" >
 
-                                <img src="../../../assets/lapiz.png" alt="" >
+                                    </div>
 
-                                <img src="../../../assets/basura.png" alt="" >
-                            </td>
-                        </tr>-->
+                                    <div class="modal-body c">
+                                        <h5>Experiencia</h5>
+                                        <p>¿Perteneces a algun movimiento, organización o pastoral eclesial o social?
+                                        </p>
+                                        <span>{{ volunt.riesgo?'Si' : 'No'}}</span>
+                                        <p>¿Cuál?</p>
+
+                                        <span>{{volunt.agrupacion}}</span>
+
+                                        <p>¿Que tipo de experiencia de voluntariado te gustaria realizar?</p>
+                                        <span>{{volunt.experiencia}}</span>
+
+                                        <p>¿Cuenta con movilidad propia?</p>
+                                        <span>{{volunt.movilidad?'Si' : 'No'}}</span>
+                                        <hr>
+                                        <h5>Datos Principales</h5>
+
+                                        <div class="contbut">
+                                            <p>Disponibilidad</p>
+                                            <select name="select" class="se">
+
+                                                <option value="value" selected>Disponibilidad Horaria</option>
+                                                <option value="UNA_HORA">1 Hs</option>
+                                                <option value="DOS_HORAS">2 Hs</option>
+                                                <option value="TRES_HORAS">3 Hs</option>
+                                                <option value="CUATRO_HORAS">4 Hs</option>
+                                                <option value="MAS_DE_4_HORAS">+4Hs</option>
+                                                <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+                                            </select>
+                                        </div>
+
+                                        <button mat-stroked-button color="primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalpreguntas">Preguntas</button>
+                                        <hr>
+                                        <div class="contbut">
+                                            <h5>Región</h5>
+
+                                            <select name="select" class="se">
+
+                                                <option value="value" selected>Probando</option>
+                                                <option value="UNA_HORA">holas</option>
+                                               
+                                            </select>
+
+
+                                            <button mat-raised-button color="primary" class="buti mt-2">ASIGNAR
+                                                REGIÓN</button>
+                                        </div>
+
+                                        <hr>
+                                        <div class="contbut">
+                                            <h5>Diócesis</h5>
+                                            <select name="select" class="se">
+
+                                                <option value="value" selected>Probando</option>
+                                                <option value="UNA_HORA">prueba</option>
+                                                
+                                            </select>
+
+                                            <button mat-raised-button color="primary" class="buti mt-2">ASIGNAR
+                                                DIÓCESIS</button>
+                                        </div>
+
+                                        <hr>
+                                        <h5>Estructura Organizativa</h5>
+                                        <div class="contbut">
+                                            <select name="select" class="se">
+
+                                                <option value="value" selected>Seleccionar Estructura Organizativa
+                                                </option>
+                                                <option value="value1">hola</option>
+                                                <option value="value2">holas</option>
+
+                                            </select>
+                                            <button mat-raised-button color="primary" class="buti">ASIGNAR
+                                                ESTRUCTURA</button>
+                                        </div>
+                                        <hr>
+
+                                        <h5 class="mt-3">Tarea</h5>
+                                        <div class="contbut">
+                                            <select name="select" class="se">
+
+                                                <option value="value" selected>Seleccionar Tarea</option>
+                                                <option value="value1">hola</option>
+                                                <option value="value2">holas</option>
+
+                                            </select>
+
+
+                                            <input type="date" placeholder="Desde">
+
+
+                                            <input type="date" placeholder="Hasta">
+
+
+                                            <button mat-raised-button color="primary" class="buti mt-2">ASIGNAR
+                                                TAREA</button>
+
+                                            <hr>
+
+                                            <button mat-raised-button color="warn" class="buti mt-2"
+                                                (click)="eliminarVoluntario(volunt.id)">ELIMINAR USUARIO</button>
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <!------------------------------MODAL DE PREGUNTAS----------------------------------->
+
+                        <div class="modal fade" id="modalpreguntas" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true" *ngIf="volunt">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <h5>Preguntas</h5>
+                                        <p>¿Te encontrás dentro de algun grupo de riesgo o convivis con personas que sí
+                                            lo estan?</p>
+                                        <span>{{volunt.riesgo?'Si':'No'}}</span>
+
+                                        <p>¿Tienes alguna enfermedad crónica o estas realizando algún tratamiento
+                                            médico?</p>
+                                        <span>{{volunt.enfermedad?'Si':'No'}}</span>
+
+
+                                        <p>¿Tienes cobertura médica?</p>
+                                        <span>{{volunt.cobertura?'Si':'No'}}</span>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!------------------------------MODAL EDITAR ----------------------------------->
+
+                        <div class="modal fade mpreg" id="modaleditar" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true" *ngIf="volunt">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <h3 class="text-center c">Editar Datos de Voluntarios</h3>
+
+
+                                        <form [formGroup]="personalDetails" class="c" id="msform" (ngSubmit)="enviar()">
+
+
+                                            <!-- fieldsets -->
+
+                                            <hr>
+                                            <h2 class="fs-title">Datos Principales</h2>
+
+                                            <div class="contenido_input mt-4">
+
+                                                <div class="clabel">
+                                                    <label>Nombre</label>
+                                                    <input type="text" formControlName="nombre" name="nombre"
+                                                        placeholder={{volunt.nombre}} />
+                                                </div>
+
+                                                <div class="clabel">
+                                                    <label>Apellido</label>
+                                                    <input type="text" formControlName="apellido" name="apellido"
+                                                        placeholder={{volunt.apellido}} />
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="contenido_input mt-4">
+                                                <div class="clabel">
+                                                    <label>DNI</label>
+                                                    <input type="number" formControlName="dni" name="dni"
+                                                        placeholder={{volunt.dni}} />
+                                                </div>
+
+
+                                                <div class="clabel">
+                                                    <label>Nacimiento</label>
+                                                    <input type="text" formControlName="nacimiento" name="nacimiento"
+                                                        placeholder={{volunt.nacimiento}} />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="contenido_input mt-4">
+
+                                                <div class="clabel">
+                                                    <label>Telefono</label>
+                                                    <input type="text" formControlName="telefono" name="telefono"
+                                                        placeholder={{volunt.telefono}} />
+                                                </div>
+
+
+                                                <div class="clabel">
+                                                    <label>Email</label>
+                                                    <input type="text" formControlName="email" name="email"
+                                                        placeholder={{volunt.email}} />
+                                                </div>
+
+                                            </div>
+                                            <hr>
+
+                                            <h2 class="fs-title">Residencia</h2>
+
+                                            <div class="contenido_input">
+
+
+                                                <div class="clabel">
+                                                    <label>Provincia</label>
+                                                    <input type="text" formControlName="provincia"
+                                                        placeholder={{volunt.provincia}} />
+                                                </div>
+
+
+
+                                                <div class="clabel">
+                                                    <label>Ciudad</label>
+                                                    <input type="text" formControlName="residencia"
+                                                        placeholder={{volunt.residencia}} />
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="contenido_input">
+
+                                                <div class="clabel">
+                                                    <label>Direccion</label>
+                                                    <input type="text" formControlName="direccion"
+                                                        placeholder={{volunt.direccion}} />
+                                                </div>
+
+                                                <div class="clabel">
+                                                    <label>Ocupacion</label>
+                                                    <input type="text" formControlName="ocupacion"
+                                                        placeholder="{{volunt.ocupacion}}" />
+                                                </div>
+
+                                            </div>
+                                            <hr>
+                                    
+
+                                            <div class="button_uno">
+                                                <input type="submit" name="next" class="next action-button mt-4"
+                                                    value="Actualizar" />
+                                            </div>
+
+
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
                     </tbody>
                 </table>
 
@@ -144,10 +421,29 @@
     </div>
 
 
+    <!-- Modal -->
 
-
-
-
+    <!--
+    <mat-card class="example-card" [hidden]="false">
+        <mat-card-header>
+            <img class="img-fluid circle im" src="../../../assets/logito.jpg" alt="Image" />
+          <mat-card-title>Agustin Nozica</mat-card-title>
+          <mat-card-subtitle>San Juan, Argentina</mat-card-subtitle>
+        </mat-card-header>
+       
+        <mat-card-content>
+          <p>
+            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+            bred for hunting.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+-->
 
 
     <router-outlet></router-outlet>

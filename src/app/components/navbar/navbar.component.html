@@ -1,59 +1,56 @@
 <div *ngIf="auth.user | async as user">
-<header>  
-<div class="caja_navbar">
-  
-  <nav class="navbar navbar-expand-lg">
+  <header>
+    <div class="caja_navbar">
 
-    <a class="navbar-brand" routerLink="/profile" routerLinkActive="active">
+      <nav class="navbar navbar-expand-lg">
 
-      <img src="../../../assets/logito.jpg" class="iconn" alt="">
-    </a>
+        <a class="navbar-brand" routerLink="/profile" routerLinkActive="active">
 
-
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon">
-        <img src="../../../assets/lista.png" alt="">
-
-      </span>
-    </button>
-
-    <h5 class="c tt mt-3">¡Bienvenid@ {{ user.displayName }}! </h5>
-
-    <div class="contlist">
-
-      <div class="collapse navbar-collapse" id="navbarNav">
+          <img src="../../../assets/logito.jpg" class="iconn" alt="">
+        </a>
 
 
-        <li>
+   <!--
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon">
+            <img src="../../../assets/lista.png" alt="">
+
+          </span>
+        </button>
+-->
+
+ 
+        <button mat-stroked-button color="warn" (click)="listaVoluntarios()">
+          <img src="../../../assets/vol.png" alt="">
+          Lista de Voluntarios
+        </button>
+        
+        <h5 class="c tt mt-2">¡Bienvenid@ {{ user.displayName }}! </h5>
+        
+        <div class="contlist">
+
           <!--
-          <img class="img-fluid imn" src={{user.photoURL}} alt="Image" />-->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            -->
 
-          <button class="btn btn-danger buttt" (click)="listaVoluntarios()">
-            <img src="../../../assets/vol.png" alt="" >
-            Lista de Voluntarios
-          </button>
-        </li>
+            <img class="img-fluid imn" src={{user.photoURL}} alt="Image" />
 
-
-
-        <li>
-          <img class="img-fluid imn" src={{user.photoURL}} alt="Image" />
-          <button class="btn btn-danger buttt" (click)="logout()">Cerrar Sesion</button>
-        </li>
+            <mat-icon color="warn" (click)="logout()">logout</mat-icon>
 
 
 
 
 
-      </div>
 
+          <!--
+          </div> -->
+
+        </div>
+
+      </nav>
     </div>
-
-  </nav>
-</div>
-</header>
+  </header>
   <router-outlet></router-outlet>
 
 
