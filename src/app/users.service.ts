@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
 
   constructor( public http: HttpClient ) { }
-  
-
   //--------------------------Users-----------------------------------//
   public findAll(token:string){
    const httpOptions = {
@@ -18,13 +16,10 @@ export class UsersService {
       Authorization: token
     })
   };
-    
     return this.http.get(environment.apiEndpoint + '/users' , httpOptions);
 
   }
-  
-
-  public find(token:string,uid:string){
+  public find(token:string,uid:string){ //no es necesario poner el mismo nombre:NOTA IMPORTANTE
     return this.http.get(environment.apiEndpoint + '/users/' +token + '/' + uid); 
   }
 

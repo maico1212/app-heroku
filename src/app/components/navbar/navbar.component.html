@@ -5,12 +5,13 @@
       <nav class="navbar navbar-expand-lg">
 
         <a class="navbar-brand" routerLink="/profile" routerLinkActive="active">
-
+           <!--
           <img src="../../../assets/logito.jpg" class="iconn" alt="">
+          -->
         </a>
 
 
-   <!--
+        <!--
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon">
@@ -18,15 +19,17 @@
 
           </span>
         </button>
--->
+
 
  
         <button mat-stroked-button color="warn" (click)="listaVoluntarios()">
           <img src="../../../assets/vol.png" alt="">
           Lista de Voluntarios
-        </button>
+        </button>-->
+
+
         
-        <h5 class="c tt mt-2">¡Bienvenid@ {{ user.displayName }}! </h5>
+        <h5 class="cb tt mt-2">¡Bienvenid@ {{ user.displayName }}! </h5>
         
         <div class="contlist">
 
@@ -36,18 +39,8 @@
 
             <img class="img-fluid imn" src={{user.photoURL}} alt="Image" />
 
-            <mat-icon color="warn" (click)="logout()">logout</mat-icon>
-
-
-
-
-
-
-          <!--
-          </div> -->
-
+            <mat-icon class="cb" style="cursor: pointer;" (click)="logout()">logout</mat-icon>
         </div>
-
       </nav>
     </div>
   </header>

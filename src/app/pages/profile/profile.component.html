@@ -1,87 +1,18 @@
 <div *ngIf="auth.user | async as user">
-
-
   <app-navbar></app-navbar>
-
-
-
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4 sube_sidebar">
 
-        <div class="border-right p-3 matsiv">
-          <mat-sidenav-container fullscreen>
+        <app-sidebar></app-sidebar>
 
-            <mat-sidenav #sidenav mode="push">
-
-              <mat-toolbar class="bmat cb">
-                <span>Menú</span>
-                <button mat-icon-button (click)="sidenav.toggle()">
-                  <mat-icon>menu</mat-icon>
-                </button>
-
-              </mat-toolbar>
-
-              <mat-nav-list class="text-center c">
-
-
-                <img src="../../../assets/logito.jpg" class="iconnv" alt="">
-                <hr>
-
-
-
-
-                <a routerLink="/profile" mat-list-item>
-
-                  <mat-icon mat-list-icon>home </mat-icon>
-                  <span>HOME</span>
-
-                </a>
-
-                <a mat-list-item>
-
-                  <mat-icon mat-list-icon>person</mat-icon>
-                  <span>VOLUNTARIOS</span>
-
-                </a>
-
-                <a mat-list-item>
-
-                  <mat-icon mat-list-icon>feed</mat-icon>
-                  <span>TAREAS</span>
-
-                </a>
-
-               
-
-              </mat-nav-list>
-
-            </mat-sidenav>
-
-
-
-            <mat-toolbar class="cm">
-
-              <button mat-icon-button (click)="sidenav.toggle()">
-                <mat-icon class="cb">menu</mat-icon>
-              </button>
-
-            </mat-toolbar>
-
-            <img class="isidenav" src="../../../assets/caritass.png" alt="">
-          </mat-sidenav-container>
-
-
-        </div>
       </div>
       <div class="col-md-8">
-        <h1 class="text-center cb">
-          Listado de Usuarios Registrados
-        </h1>
-        <table class="table  table-dark  table-hover">
+     
+        <table class="table table-hover">
 
 
-          <thead class="cb">
+          <thead class="c">
             <tr>
               <th>
                 <h5>UID</h5>
@@ -101,7 +32,7 @@
 
             </tr>
           </thead>
-          <tbody class="cb"> 
+          <tbody class="c"> 
             <tr *ngFor="let item of users; let i=index">
               <td> {{ i+1 }}</td>
               <td>
@@ -194,4 +125,5 @@
     </div>
 
   </div>
+  <router-outlet></router-outlet>
 </div>

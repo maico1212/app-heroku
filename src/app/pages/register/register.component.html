@@ -18,9 +18,11 @@
 
 
   <div class="col-6">
+
+
     <form [formGroup]="personalDetails" class="c" id="msform" (ngSubmit)="enviar()">
       <!-- progressbar -->
-      <ul id="progressbar" class="c">
+      <ul id="progressbar">
         <li [ngClass]="step>=1 ? 'active ' : 'inactive'">Datos Principales</li>
         <li [ngClass]="step>=2 ? 'active' : 'inactive'">Residencia</li>
         <li [ngClass]="step>=3 ? 'active' : 'inactive'">Preguntas</li>
@@ -33,6 +35,7 @@
       <!-- fieldsets -->
       <fieldset *ngIf="step == 1">
 
+  
         <h2 class="fs-title">Datos Principales</h2>
 
         <div class="contenido_input mt-4">
@@ -44,20 +47,11 @@
           <div *ngIf="personal_step && personalDetails.controls.nombre.errors">
             <div *ngIf="personal.nombre.errors?.required" class="cr">¡Nombre es Requerido!</div>
           </div>
-
-
-
-
           <input type="text" formControlName="apellido" name="apellido"
             [ngClass]="{ 'is-invalid': personal_step && personal.apellido.errors }" placeholder="Apellido" />
           <div *ngIf="personal_step && personalDetails.controls.apellido.errors">
             <div *ngIf="personal.apellido.errors?.required" class="cr">¡Apellido es Requerido!</div>
           </div>
-
-
-
-
-
         </div>
 
         <div class="contenido_input mt-4">
@@ -187,7 +181,7 @@
 
         <label class="md-check">
           Sí
-          <input type="radio" value=true name="riesgo" formControlName="riesgo">
+          <input  type="radio" value=true name="riesgo" formControlName="riesgo">
 
           No
           <input type="radio" value=false name="riesgo" formControlName="riesgo">
@@ -210,12 +204,8 @@
 
 
 
-
           <input class="cua" type="text" formControlName="agrupacion" placeholder="¿Cuál?" />
         </label>
-
-
-
 
 
         <label>¿Tiene alguna enfermedad crónica o estas realizando algún tratamiento médico?</label>
@@ -301,7 +291,7 @@
 
           <input (click)="previous()" type="button" name="previous" class="previous action-button-previous"
             value="Atrás" />
-          <input (click)="next()" type="button" name="next" class="next action-button" value="Next" />
+          <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
         </div>
       </fieldset>
     </form>
@@ -314,7 +304,7 @@
         <h2 class="fs-title">Disponibilidad</h2>
         <p class="font_dis">¿Qué tiempos disponible tenes para realizar tu experiencia de Voluntariado?</p>
 
-        <table class="tabler">
+        <table class="tabler table-hover">
           <thead>
             <tr>
               <th class="text-center">Día</th>
@@ -405,11 +395,6 @@
                 </label>
 
               </td>
-
-
-
-
-
             </tr>
 
             <tr>
@@ -446,8 +431,6 @@
                     </span>
                   </span>
                 </label>
-
-
               </td>
 
               <td>
@@ -463,17 +446,13 @@
 
               </td>
               <td>
-
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="martes" value="MAS_DE_4_HORAS" formControlName="martes">
-
                     </span>
                   </span>
                 </label>
-
               </td>
 
               <td>
@@ -489,25 +468,14 @@
                 </label>
 
               </td>
-
-
-
-
-
             </tr>
-
-
-
-
-
-            <tr>
+           <tr>
               <th>Mié</th>
               <td>
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="miercoles" value="UNA_HORA" formControlName="miercoles">
-
                     </span>
                   </span>
                 </label>
@@ -523,66 +491,46 @@
                   </span>
                 </label>
               </td>
-
               <td>
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="miercoles" value="TRES_HORAS" formControlName="miercoles">
-
                     </span>
                   </span>
                 </label>
-
-
               </td>
-
               <td>
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="miercoles" value="CUATRO_HORAS"
                         formControlName="miercoles">
-
                     </span>
                   </span>
                 </label>
-
               </td>
               <td>
-
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="miercoles" value="MAS_DE_4_HORAS"
                         formControlName="miercoles">
-
                     </span>
                   </span>
                 </label>
-
               </td>
-
               <td>
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="miercoles" value="NO_TENGO_DISPONIBILIDAD"
                         formControlName="miercoles">
-
                     </span>
                   </span>
                 </label>
-
               </td>
-
-
             </tr>
-
             <tr>
               <th>Jue</th>
               <td>
@@ -590,80 +538,57 @@
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="jueves" value="UNA_HORA" formControlName="jueves">
-
                     </span>
                   </span>
                 </label>
               </td>
-
               <td>
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="jueves" value="DOS_HORAS" formControlName="jueves">
-
                     </span>
                   </span>
                 </label>
               </td>
-
               <td>
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="jueves" value="TRES_HORAS" formControlName="jueves">
-
                     </span>
                   </span>
                 </label>
-
-
               </td>
-
               <td>
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="jueves" value="CUATRO_HORAS" formControlName="jueves">
-
                     </span>
                   </span>
                 </label>
-
               </td>
               <td>
-
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="jueves" value="MAS_DE_4_HORAS" formControlName="jueves">
-
                     </span>
                   </span>
                 </label>
-
               </td>
-
               <td>
-
                 <label class="input-group mb-0">
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="jueves" value="NO_TENGO_DISPONIBILIDAD"
                         formControlName="jueves">
-
                     </span>
                   </span>
                 </label>
-
               </td>
-
-
             </tr>
-
             <tr>
               <th>Vie</th>
               <td>
@@ -671,12 +596,10 @@
                   <span class="form-control btn">
                     <span class="input-group-addon">
                       <input class="mt-1" type="radio" name="viernes" value="UNA_HORA" formControlName="viernes">
-
                     </span>
                   </span>
                 </label>
               </td>
-
               <td>
                 <label class="input-group mb-0">
                   <span class="form-control btn">
@@ -921,6 +844,7 @@
         </div>
       </fieldset>
     </form>
+    
   </div>
 </div>
 

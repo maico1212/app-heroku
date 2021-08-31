@@ -1,69 +1,21 @@
 <div *ngIf="auth.user | async as user">
-
-
     <div class="container">
         <div class="row">
-
-            <div class="col-md-4">
-
-                <div class="border-right p-3 sidebar">
-                    
-                      <img src="../../../assets/logito.jpg" class="iconnv" alt="">
-
-                            <mat-nav-list class="text-center c mt-1">
-
-                                <a routerLink="/profile" mat-list-item>
-
-                                    <mat-icon mat-list-icon class="cb">home </mat-icon>
-                                    <span class="cb">HOME</span>
-
-                                </a>
-
-                                <a mat-list-item>
-
-                                    <mat-icon mat-list-icon class="cb">person</mat-icon>
-                                    <span class="cb">VOLUNTARIOS</span>
-
-                                </a>
-
-                                <a mat-list-item>
-
-                                    <mat-icon mat-list-icon class="cb">feed</mat-icon>
-                                    <span class="cb">TAREAS</span>
-
-                                </a>
-
-                                <a mat-list-item class="pef">
-
-                                    <mat-icon mat-list-icon class="cb">person</mat-icon>
-                                    <span class="cb">PERFIL</span>
-                  
-                                  </a>
-
-                            </mat-nav-list>
-
-
-
-
-
-                </div>
+            <div class="col-md-4 sube_sidebar_volunt">
+              <app-sidebar></app-sidebar>
             </div>
 
-            <div class="listado col-md-8 mt-5">
-                
+            <div class="listado col-md-8 mt-2">
                 <form class="form-inline busc">
                     <input class="buto mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-               
                     <button mat-stroked-button class="cb">
-                     <mat-icon>search</mat-icon></button>
+                        <mat-icon>search</mat-icon>
+                    </button>
                 </form>
 
-
-                <table class="table table-borderless">
-
-
+                <table class="table table-borderless table-hover">
+                  
                     <thead class="c">
-
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Nombre y Apellido</th>
@@ -72,25 +24,27 @@
                             <th scope="col">DNI</th>
                             <th scope="col">Provincia</th>
                             <th scope="col">Ciudad</th>
-
                         </tr>
-
                     </thead>
                     <tbody class="c">
-                        <tr *ngFor="let item of json; index as i;">
+                        <tr style="cursor:pointer" *ngFor="let item of json; index as i;">
                             <th scope="row">{{i+1}}</th>
                             <!-- Button trigger modal -->
+                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
+                                {{item.nombre}}
+                                {{item.apellido}} </td>
 
+                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
+                                {{item.email}} </td>
 
-                            <td> <a data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    (click)="voluntar(item.id)">{{item.nombre}}
-                                    {{item.apellido}}</a> </td>
-
-                            <td>{{item.email}}</td>
-                            <td>{{item.telefono}}</td>
-                            <td>{{item.dni}}</td>
-                            <td>{{item.provincia}}</td>
-                            <td>{{item.residencia}}</td>
+                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
+                                {{item.telefono}}</td>
+                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
+                                {{item.dni}}</td>
+                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
+                                {{item.provincia}}</td>
+                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
+                                {{item.residencia}}</td>
 
 
 
@@ -107,7 +61,7 @@
                                             <h5 class="modal-title" id="exampleModalLabel"></h5>
                                             <h5 class="cb">{{volunt.nombre}},{{volunt.apellido}}</h5>
 
-                                            <h5 class="cb">San Juan, Argentina</h5>
+                                            <p class="cb font_modal_header">{{volunt.provincia}}, Argentina</p>
 
                                             <mat-icon class="cb reg" mat-list-icon>domain</mat-icon>
                                             <mat-icon class="cb chec" mat-list-icon>check</mat-icon>
@@ -129,118 +83,459 @@
                                     </div>
 
                                     <div class="modal-body c">
-                                        <h5>Experiencia</h5>
-                                        <p>¿Perteneces a algun movimiento, organización o pastoral eclesial o social?
-                                        </p>
-                                        <span>{{ volunt.riesgo?'Si' : 'No'}}</span>
-                                        <p>¿Cuál?</p>
+                                        <h5 class="color_exp">Experiencia</h5>
+                                        <h6>¿Perteneces a algun movimiento, organización o pastoral eclesial o social?
+                                        </h6>
+                                        <h6>¿Cuál?</h6>
 
-                                        <span>{{volunt.agrupacion}}</span>
+                                        <span>{{ volunt.movimiento?'Si' : 'No'}},&nbsp;{{volunt.agrupacion}} </span>
 
-                                        <p>¿Que tipo de experiencia de voluntariado te gustaria realizar?</p>
+
+
+
+                                        <h6>¿Que tipo de experiencia de voluntariado te gustaria realizar?</h6>
                                         <span>{{volunt.experiencia}}</span>
 
-                                        <p>¿Cuenta con movilidad propia?</p>
-                                        <span>{{volunt.movilidad?'Si' : 'No'}}</span>
+                                        <div class="cp">
+                                            <h6>¿Cuenta con movilidad propia? </h6>
+                                            &nbsp;
+                                            <span class="s">{{volunt.movilidad?'Si' : 'No'}}</span>
+                                        </div>
                                         <hr>
-                                        <h5>Datos Principales</h5>
+                                        <h5 class="color_exp">Datos Principales</h5>
 
                                         <div class="contbut">
-                                            <p>Disponibilidad</p>
-                                            <select name="select" class="se">
 
-                                                <option value="value" selected>Disponibilidad Horaria</option>
-                                                <option value="UNA_HORA">1 Hs</option>
-                                                <option value="DOS_HORAS">2 Hs</option>
-                                                <option value="TRES_HORAS">3 Hs</option>
-                                                <option value="CUATRO_HORAS">4 Hs</option>
-                                                <option value="MAS_DE_4_HORAS">+4Hs</option>
-                                                <option value="NO_TENGO_DISPONIBILIDAD">No tengo disponibilidad</option>
+                                            <select class="select_disp form-select" data-bs-toggle="modal"
+                                            data-bs-target="#modaldisponibilidad" class="select_disp form-select" aria-label="Default select example">
+
+
+                                                <option selected>Disponibilidad Horaria</option>
+                                              
+
                                             </select>
                                         </div>
 
-                                        <button mat-stroked-button color="primary" data-bs-toggle="modal"
-                                            data-bs-target="#modalpreguntas">Preguntas</button>
-                                        <hr>
                                         <div class="contbut">
-                                            <h5>Región</h5>
 
-                                            <select name="select" class="se">
+                                            <select selected mat-stroked-button color="primary" data-bs-toggle="modal"
+                                                data-bs-target="#modalpreguntas" class="select_disp form-select"
+                                                aria-label="Default select example">
 
-                                                <option value="value" selected>Probando</option>
+
+                                                <option>Preguntas</option>
+
+
+                                            </select>
+                                        </div>
+
+
+                                        <hr>
+
+                                        <form [formGroup]="Region">
+
+                                            <div class="region">
+                                                <h5 class="text_region">Región</h5>
+
+                                                <select class="select_reg form-select my-select"
+                                                    aria-label="Default select example" formControlName="region">
+
+                                                    <option selected>Seleccionar Región</option>
+
+                                                    <option value="regionbsas" class="sec">Región Buenos Aires </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Avellaneda Lanús</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Buenos Aires</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Lomas de Zamora</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Merlo Moreno</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Morón</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Quilmes</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Isidro</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Justo</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Martin</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Miguel</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Zárate Campana</option>
+
+
+                                                    <option value="regioncentro" class="sec">Región Centro</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Córdoba </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Cruz del Eje </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp; Deán Funes</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Río Cuarto </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Francisco </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Villa María</option>
+
+
+                                                    <option value="regioncuyo" class="sec">Región Cuyo</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Mendoza </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Rafael </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Juan </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Luis </option>
+
+                                                    <option value="regionlitoral" class="sec">Región Litoral</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Concordia </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Gualeguaychú </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Paraná </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Rafael </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Rosario </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Nicolás </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santa Fé </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Venado Tuerto </option>
+
+
+                                                    <option value="regionNEA" class="sec">Región NEA</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Corrientes </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Formosa </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Goya</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Oberá </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Posadas </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Puerto Iguazú </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Reconquista </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Resistencia </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Roque </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santo Tomé </option>
+
+
+                                                    <option value="regionNOA" class="sec">Región NOA</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Añatuya </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Cafayate </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Catamarca</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Concepcion </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Huamahuaca </option>
+
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Jujuy</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;La Rioja</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Orán </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Salta</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Roque </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santiago del Estereo </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Tucumán</option>
+
+
+                                                    <option value="regionpatagonia" class="sec">Región Patagonia
+                                                    </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Alto Valle del Río Negro
+                                                    </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Comodoro Rivadavia </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Esquel</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Neuquén </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Río Gallegos </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Carlos de Bariloche</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Viedma</option>
+
+                                                    <option value="regionplatense" class="sec">Región Platense</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Azul </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Bahía Blanca </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Chascomús</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;La Plata </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Mar del Plata </option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Mercedes Luján</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Nueve de Julio</option>
+                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santa Rosa</option>
+
+
+
+                                                    <option value="desarrolloinstitucional" class="sec">Desarrollo
+                                                        Institucional</option>
+                                                    <option value="desarrolloinfanciaeducacion" class="sec">Desarrollo
+                                                        de Infancia y Educación</option>
+                                                    <option value="relacionesinstitucionales" class="sec">Relaciones
+                                                        Institucionales</option>
+                                                </select>
+
+                                                <button class="buti mt-2">ASIGNAR
+                                                    REGIÓN</button>
+                                            </div>
+                                        </form>
+
+
+                                        <form [formGroup]="Diocesis">
+
+                                            <div [ngClass]="{disabled:Region.invalid}" class="region mt-3">
+                                                <h5 class="text_region">Diócesis</h5>
+
+                                                <select class="select_reg form-select"
+                                                    aria-label="Default select example" formControlName="diocesis">
+
+                                                    <option value="value" selected>Seleccionar Diócesis</option>
+                                                    <optgroup label="Región Buenos Aires">
+                                                        <option value="1" label="Avellaneda Lanús"> </option>
+                                                        <option value="1" label="Buenos Aires"> </option>
+                                                        <option value="1" label="Gregorio de Laferrere"> </option>
+                                                        <option value="1" label="Lomas de Zamora"> </option>
+                                                        <option value="1" label="Merlo Moreno"> </option>
+                                                        <option value="1" label="Morón "></option>
+                                                        <option value="1" label="Quilmes "></option>
+                                                        <option value="1" label="San Isidro"> </option>
+                                                        <option value="1" label="San Justo "></option>
+                                                        <option value="1" label="San Martin"> </option>
+                                                        <option value="1" label="San Miguel"> </option>
+                                                        <option value="1" label="Zárate Campana "></option>
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Centro">
+                                                        <option value="1" label="Córdoba"> </option>
+                                                        <option value="1" label="Cruz del Eje"> </option>
+                                                        <option value="1" label="Deán Funes"> </option>
+                                                        <option value="1" label="Río Cuarto"> </option>
+                                                        <option value="1" label="San Francisco"> </option>
+                                                        <option value="1" label="Villa María"></option>
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Cuyo">
+                                                        <option value="1" label="Mendoza"> </option>
+                                                        <option value="1" label="San Rafael"> </option>
+                                                        <option value="1" label="San Juan"> </option>
+                                                        <option value="1" label="San Luis"> </option>
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Litoral">
+                                                        <option value="1" label="Concordia"> </option>
+                                                        <option value="1" label="Gualeguaychú"> </option>
+                                                        <option value="1" label="Paraná"> </option>
+                                                        <option value="1" label="Rafael"> </option>
+                                                        <option value="1" label="Rosario"> </option>
+                                                        <option value="1" label="San Nicolás"> </option>
+                                                        <option value="1" label="Santa Fé"> </option>
+                                                        <option value="1" label="Venado Tuerto"> </option>
+                                                    </optgroup>
+
+
+                                                    <optgroup label="Región NEA">
+                                                        <option value="1" label="Corrientes"> </option>
+                                                        <option value="1" label="Formosa"> </option>
+                                                        <option value="1" label="Goya"> </option>
+                                                        <option value="1" label="Oberá"> </option>
+                                                        <option value="1" label="Posadas"> </option>
+                                                        <option value="1" label="Puerto Iguazú"> </option>
+                                                        <option value="1" label="Reconquista"> </option>
+                                                        <option value="1" label="Resistencia"> </option>
+                                                        <option value="1" label="San Roque"> </option>
+                                                        <option value="1" label="Santo Tomé"> </option>
+                                                        <option value="1" label="Santo Tomé"> </option>
+                                                    </optgroup>
+
+
+                                                    <optgroup label="Región NOA">
+                                                        <option value="1" label="Añatuya"> </option>
+                                                        <option value="1" label="Cafayate"> </option>
+                                                        <option value="1" label="Catamarca"> </option>
+                                                        <option value="1" label="Concepcion"> </option>
+                                                        <option value="1" label="Huamahuaca"> </option>
+                                                        <option value="1" label="Jujuy"> </option>
+                                                        <option value="1" label="La Rioja"> </option>
+                                                        <option value="1" label="Orán"> </option>
+                                                        <option value="1" label="Salta"> </option>
+                                                        <option value="1" label="Santiago del Estereo"> </option>
+                                                        <option value="1" label="Tucumán"> </option>
+                                                    </optgroup>
+
+
+                                                    <optgroup label="Región Patagonia">
+                                                        <option value="1" label="Alto Valle del Río Negro"> </option>
+                                                        <option value="1" label="Comodoro Rivadavia"> </option>
+                                                        <option value="1" label="Esquel"> </option>
+                                                        <option value="1" label="Neuquén"> </option>
+                                                        <option value="1" label="Río Gallegos"> </option>
+                                                        <option value="1" label="San Carlos de Bariloche"> </option>
+                                                        <option value="1" label="Viedma"> </option>
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Platense">
+                                                        <option value="1" label="Azul"> </option>
+                                                        <option value="1" label="Bahía Blanca"> </option>
+                                                        <option value="1" label="Chascomús"> </option>
+                                                        <option value="1" label="La Plata"> </option>
+                                                        <option value="1" label="Mar del Plata"> </option>
+                                                        <option value="1" label="Mercedes Luján"> </option>
+                                                        <option value="1" label="Nueve de Julio"> </option>
+                                                        <option value="1" label="Santa Rosa"> </option>
+                                                    </optgroup>
+
+                                                    <optgroup label="Desarrollo Institucional">
+
+                                                    </optgroup>
+                                                    <optgroup label="Desarrollo de Infancia y educación">
+
+
+                                                    </optgroup>
+                                                    <optgroup label="Relaciones Institucionales">
+
+                                                    </optgroup>
+
+                                                </select>
+                                                <button class="buti mt-2">ASIGNAR DIÓCESIS</button>
+                                            </div>
+
+                                        </form>
+                                        <hr>
+                                        <form [formGroup]="Diocesis">
+                                            <div [ngClass]="{disabled:Diocesis.invalid}" class="region" >
+                                                <h5 class="text_region">Estructura Organizativa</h5>
+
+                                                <select class="select_reg form-select"
+                                                    aria-label="Default select example">
+
+                                                    <option value="value" selected>Seleccionar Estructura Organizativa
+                                                    </option>
+                                                    <optgroup label="Región Buenos Aires">
+                                                        <option value="1" label="Avellaneda Lanús"> </option>
+                                                        <option value="1" label="Buenos Aires"> </option>
+                                                        <option value="1" label="Gregorio de Laferrere"> </option>
+                                                        <option value="1" label="Lomas de Zamora"> </option>
+                                                        <option value="1" label="Merlo Moreno"> </option>
+                                                        <option value="1" label="Morón "></option>
+                                                        <option value="1" label="Quilmes "></option>
+                                                        <option value="1" label="San Isidro"> </option>
+                                                        <option value="1" label="San Justo "></option>
+                                                        <option value="1" label="San Martin"> </option>
+                                                        <option value="1" label="San Miguel"> </option>
+                                                        <option value="1" label="Zárate Campana "></option>
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Centro">
+                                                        <option value="1" label="Córdoba"> </option>
+                                                        <option value="1" label="Cruz del Eje"> </option>
+                                                        <option value="1" label="Deán Funes"> </option>
+                                                        <option value="1" label="Río Cuarto"> </option>
+                                                        <option value="1" label="San Francisco"> </option>
+                                                        <option value="1" label="Villa María"></option>
+
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Cuyo">
+                                                        <option value="1" label="Mendoza"> </option>
+                                                        <option value="1" label="San Rafael"> </option>
+                                                        <option value="1" label="San Juan"> </option>
+                                                        <option value="1" label="San Luis"> </option>
+
+
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Litoral">
+                                                        <option value="1" label="Concordia"> </option>
+                                                        <option value="1" label="Gualeguaychú"> </option>
+                                                        <option value="1" label="Paraná"> </option>
+                                                        <option value="1" label="Rafael"> </option>
+                                                        <option value="1" label="Rosario"> </option>
+                                                        <option value="1" label="San Nicolás"> </option>
+                                                        <option value="1" label="Santa Fé"> </option>
+                                                        <option value="1" label="Venado Tuerto"> </option>
+
+
+                                                    </optgroup>
+
+
+                                                    <optgroup label="Región NEA">
+                                                        <option value="1" label="Corrientes"> </option>
+                                                        <option value="1" label="Formosa"> </option>
+                                                        <option value="1" label="Goya"> </option>
+                                                        <option value="1" label="Oberá"> </option>
+                                                        <option value="1" label="Posadas"> </option>
+                                                        <option value="1" label="Puerto Iguazú"> </option>
+                                                        <option value="1" label="Reconquista"> </option>
+                                                        <option value="1" label="Resistencia"> </option>
+                                                        <option value="1" label="San Roque"> </option>
+                                                        <option value="1" label="Santo Tomé"> </option>
+                                                        <option value="1" label="Santo Tomé"> </option>
+
+
+                                                    </optgroup>
+
+
+                                                    <optgroup label="Región NOA">
+                                                        <option value="1" label="Añatuya"> </option>
+                                                        <option value="1" label="Cafayate"> </option>
+                                                        <option value="1" label="Catamarca"> </option>
+                                                        <option value="1" label="Concepcion"> </option>
+                                                        <option value="1" label="Huamahuaca"> </option>
+                                                        <option value="1" label="Jujuy"> </option>
+                                                        <option value="1" label="La Rioja"> </option>
+                                                        <option value="1" label="Orán"> </option>
+                                                        <option value="1" label="Salta"> </option>
+                                                        <option value="1" label="Santiago del Estereo"> </option>
+                                                        <option value="1" label="Tucumán"> </option>
+
+
+                                                    </optgroup>
+
+
+                                                    <optgroup label="Región Patagonia">
+                                                        <option value="1" label="Alto Valle del Río Negro"> </option>
+                                                        <option value="1" label="Comodoro Rivadavia"> </option>
+                                                        <option value="1" label="Esquel"> </option>
+                                                        <option value="1" label="Neuquén"> </option>
+                                                        <option value="1" label="Río Gallegos"> </option>
+                                                        <option value="1" label="San Carlos de Bariloche"> </option>
+                                                        <option value="1" label="Viedma"> </option>
+
+
+                                                    </optgroup>
+
+                                                    <optgroup label="Región Platense">
+                                                        <option value="1" label="Azul"> </option>
+                                                        <option value="1" label="Bahía Blanca"> </option>
+                                                        <option value="1" label="Chascomús"> </option>
+                                                        <option value="1" label="La Plata"> </option>
+                                                        <option value="1" label="Mar del Plata"> </option>
+                                                        <option value="1" label="Mercedes Luján"> </option>
+                                                        <option value="1" label="Nueve de Julio"> </option>
+                                                        <option value="1" label="Santa Rosa"> </option>
+
+
+                                                    </optgroup>
+
+                                                    <optgroup label="Desarrollo Institucional">
+
+                                                    </optgroup>
+                                                    <optgroup label="Desarrollo de Infancia y educación">
+
+
+                                                    </optgroup>
+                                                    <optgroup label="Relaciones Institucionales">
+
+                                                    </optgroup>
+
+                                                </select>
+
+
+                                                <button class="buti mt-2">ASIGNAR
+                                                    ESTRUCTURA</button>
+                                            </div>
+                                        </form>
+
+                                        <hr>
+
+                                        <div class="region">
+                                            <h5 class="text_region">Tarea</h5>
+
+                                            <select class="select_reg form-select" aria-label="Default select example">
+
+                                                <option value="value" selected>Tareas</option>
                                                 <option value="UNA_HORA">holas</option>
-                                               
-                                            </select>
-
-
-                                            <button mat-raised-button color="primary" class="buti mt-2">ASIGNAR
-                                                REGIÓN</button>
-                                        </div>
-
-                                        <hr>
-                                        <div class="contbut">
-                                            <h5>Diócesis</h5>
-                                            <select name="select" class="se">
-
-                                                <option value="value" selected>Probando</option>
-                                                <option value="UNA_HORA">prueba</option>
-                                                
-                                            </select>
-
-                                            <button mat-raised-button color="primary" class="buti mt-2">ASIGNAR
-                                                DIÓCESIS</button>
-                                        </div>
-
-                                        <hr>
-                                        <h5>Estructura Organizativa</h5>
-                                        <div class="contbut">
-                                            <select name="select" class="se">
-
-                                                <option value="value" selected>Seleccionar Estructura Organizativa
-                                                </option>
-                                                <option value="value1">hola</option>
-                                                <option value="value2">holas</option>
-
-                                            </select>
-                                            <button mat-raised-button color="primary" class="buti">ASIGNAR
-                                                ESTRUCTURA</button>
-                                        </div>
-                                        <hr>
-
-                                        <h5 class="mt-3">Tarea</h5>
-                                        <div class="contbut">
-                                            <select name="select" class="se">
-
-                                                <option value="value" selected>Seleccionar Tarea</option>
-                                                <option value="value1">hola</option>
-                                                <option value="value2">holas</option>
 
                                             </select>
 
+                                            <label class="text_region">Desde</label>
+                                            <input class="form-control buti_calend" type="date" placeholder="Desde">
 
-                                            <input type="date" placeholder="Desde">
+                                            <label class="text_region">Hasta</label>
+                                            <input class="form-control buti_calend" type="date" placeholder="Hasta">
 
 
-                                            <input type="date" placeholder="Hasta">
 
-
-                                            <button mat-raised-button color="primary" class="buti mt-2">ASIGNAR
-                                                TAREA</button>
-
-                                            <hr>
-
-                                            <button mat-raised-button color="warn" class="buti mt-2"
-                                                (click)="eliminarVoluntario(volunt.id)">ELIMINAR USUARIO</button>
+                                            <button class="buti mt-2">ASIGNAR TAREA</button>
 
                                         </div>
+
+
+                                        <button class="buti_eliminar mt-3"
+                                            (click)="eliminarVoluntario(volunt.id)"><strong>ELIMINAR USUARIO</strong>
+                                        </button>
+
 
 
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -250,69 +545,59 @@
 
                         <!------------------------------MODAL DE PREGUNTAS----------------------------------->
 
-                        <div class="modal fade" id="modalpreguntas" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true" *ngIf="volunt">
+                        <div class="modal fade mpreg" id="modalpreguntas" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
                             <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
 
                                     <div class="modal-body">
-                                        <h5>Preguntas</h5>
+
                                         <p>¿Te encontrás dentro de algun grupo de riesgo o convivis con personas que sí
                                             lo estan?</p>
-                                        <span>{{volunt.riesgo?'Si':'No'}}</span>
+                                        <h6>{{volunt.riesgo?'Si':'No'}}</h6>
+
+                                        <p>¿Perteneces a algún movimiento, organizacion o pastoral eclesial o social?
+                                            ¿Cuál?
+                                        </p>
+                                        <h6>{{volunt.movimiento?'Si':'No'}},&nbsp;{{volunt.agrupacion}}</h6>
 
                                         <p>¿Tienes alguna enfermedad crónica o estas realizando algún tratamiento
                                             médico?</p>
-                                        <span>{{volunt.enfermedad?'Si':'No'}}</span>
+                                        <h6>{{volunt.enfermedad?'Si':'No'}}</h6>
 
 
                                         <p>¿Tienes cobertura médica?</p>
-                                        <span>{{volunt.cobertura?'Si':'No'}}</span>
+                                        <h6>{{volunt.cobertura?'Si':'No'}}</h6>
 
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
 
                         <!------------------------------MODAL EDITAR ----------------------------------->
 
-                        <div class="modal fade mpreg" id="modaleditar" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true" *ngIf="volunt">
+                        <div class="modal fade m_editar" id="modaleditar" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
                             <div class="modal-dialog modal-dialog-scrollable">
                                 <div class="modal-content">
-
                                     <div class="modal-body">
                                         <h3 class="text-center c">Editar Datos de Voluntarios</h3>
-
-
                                         <form [formGroup]="personalDetails" class="c" id="msform" (ngSubmit)="enviar()">
-
-
                                             <!-- fieldsets -->
-
                                             <hr>
                                             <h2 class="fs-title">Datos Principales</h2>
-
                                             <div class="contenido_input mt-4">
-
                                                 <div class="clabel">
                                                     <label>Nombre</label>
                                                     <input type="text" formControlName="nombre" name="nombre"
                                                         placeholder={{volunt.nombre}} />
                                                 </div>
-
                                                 <div class="clabel">
                                                     <label>Apellido</label>
                                                     <input type="text" formControlName="apellido" name="apellido"
                                                         placeholder={{volunt.apellido}} />
                                                 </div>
-
-
                                             </div>
 
                                             <div class="contenido_input mt-4">
@@ -388,7 +673,7 @@
 
                                             </div>
                                             <hr>
-                                    
+
 
                                             <div class="button_uno">
                                                 <input type="submit" name="next" class="next action-button mt-4"
@@ -411,6 +696,617 @@
 
 
 
+                        <!-------  MODAL DISPONIBILIDAD ------->
+                        <div class="modal fade m_disponibilidad" id="modaldisponibilidad" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+
+                                        
+        <table class="tabler_volun table-hover">
+            <thead>
+              <tr>
+                <th class="text-center">Día</th>
+                <th class="text-center">1hs</th>
+                <th class="text-center">2hs </th>
+                <th class="text-center">3hs</th>
+                <th class="text-center">4hs</th>
+                <th class="text-center">+4hs</th>
+                <th class="text-center">No disp.</th>
+              </tr>
+            </thead>
+            <tbody>
+  
+              <tr>
+                <th>Lun</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="lunes" value="UNA_HORA" formControlName="lunes">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="lunes" value="DOS_HORAS" formControlName="lunes">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="lunes" value="TRES_HORAS" formControlName="lunes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="lunes" value="CUATRO_HORAS" formControlName="lunes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="lunes" value="MAS_DE_4_HORAS" formControlName="lunes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="lunes" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="lunes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+  
+  
+  
+  
+              </tr>
+  
+              <tr>
+                <th>Mar</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="martes" value="UNA_HORA" formControlName="martes">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="martes" value="DOS_HORAS" formControlName="martes">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="martes" value="TRES_HORAS" formControlName="martes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="martes" value="CUATRO_HORAS" formControlName="martes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="martes" value="MAS_DE_4_HORAS" formControlName="martes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="martes" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="martes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+  
+  
+  
+  
+              </tr>
+  
+  
+  
+  
+  
+              <tr>
+                <th>Mié</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="miercoles" value="UNA_HORA" formControlName="miercoles">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="miercoles" value="DOS_HORAS" formControlName="miercoles">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="miercoles" value="TRES_HORAS" formControlName="miercoles">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="miercoles" value="CUATRO_HORAS"
+                          formControlName="miercoles">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="miercoles" value="MAS_DE_4_HORAS"
+                          formControlName="miercoles">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="miercoles" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="miercoles">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+  
+              </tr>
+  
+              <tr>
+                <th>Jue</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="jueves" value="UNA_HORA" formControlName="jueves">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="jueves" value="DOS_HORAS" formControlName="jueves">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="jueves" value="TRES_HORAS" formControlName="jueves">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="jueves" value="CUATRO_HORAS" formControlName="jueves">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="jueves" value="MAS_DE_4_HORAS" formControlName="jueves">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="jueves" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="jueves">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+  
+              </tr>
+  
+              <tr>
+                <th>Vie</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="viernes" value="UNA_HORA" formControlName="viernes">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="viernes" value="DOS_HORAS" formControlName="viernes">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="viernes" value="TRES_HORAS" formControlName="viernes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="viernes" value="CUATRO_HORAS" formControlName="viernes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="viernes" value="MAS_DE_4_HORAS" formControlName="viernes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="viernes" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="viernes">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+  
+              </tr>
+  
+              <tr>
+                <th>Sáb</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="sabado" value="UNA_HORA" formControlName="sabado">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="sabado" value="DOS_HORAS" formControlName="sabado">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="sabado" value="TRES_HORAS" formControlName="sabado">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="sabado" value="CUATRO_HORAS" formControlName="sabado">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="sabado" value="MAS_DE_4_HORAS" formControlName="sabado">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="sabado" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="sabado">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+  
+              </tr>
+  
+  
+              <tr>
+                <th>Dom</th>
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="domingo" value="UNA_HORA" formControlName="domingo">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="domingo" value="DOS_HORAS" formControlName="domingo">
+  
+                      </span>
+                    </span>
+                  </label>
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="domingo" value="TRES_HORAS" formControlName="domingo">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="domingo" value="CUATRO_HORAS" formControlName="domingo">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+                <td>
+  
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="domingo" value="MAS_DE_4_HORAS" formControlName="domingo">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                </td>
+  
+                <td>
+  
+                  <label class="input-group mb-0">
+                    <span class="form-control btn">
+                      <span class="input-group-addon">
+                        <input class="mt-1" type="radio" name="domingo" value="NO_TENGO_DISPONIBILIDAD"
+                          formControlName="domingo">
+  
+                      </span>
+                    </span>
+                  </label>
+  
+                                                            </td>
+  
+  
+                                                      </tr>
+  
+   
+                                              </tbody>
+                                        </table>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </div>
                     </tbody>
                 </table>
 
@@ -419,32 +1315,6 @@
 
         </div>
     </div>
-
-
-    <!-- Modal -->
-
-    <!--
-    <mat-card class="example-card" [hidden]="false">
-        <mat-card-header>
-            <img class="img-fluid circle im" src="../../../assets/logito.jpg" alt="Image" />
-          <mat-card-title>Agustin Nozica</mat-card-title>
-          <mat-card-subtitle>San Juan, Argentina</mat-card-subtitle>
-        </mat-card-header>
-       
-        <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
-      </mat-card>
--->
-
 
     <router-outlet></router-outlet>
 

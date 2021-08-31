@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class VoluntariosComponent implements OnInit {
   personalDetails: FormGroup;
+  Region: FormGroup;
+  Diocesis: FormGroup;
   personal_step = false;
 
   bandera: boolean;
@@ -37,7 +39,21 @@ export class VoluntariosComponent implements OnInit {
   datosf: any;
   ngOnInit(): void {
 
-  
+    this.Region = this.formBuilder.group({
+     region:['',Validators.required]
+      
+
+    });
+
+    
+  this.Diocesis = this.formBuilder.group({
+    diocesis:['',Validators.required]
+  });
+
+
+
+
+
     this.personalDetails = this.formBuilder.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -45,6 +61,9 @@ export class VoluntariosComponent implements OnInit {
       dni: ['',Validators.required],
       nacimiento: ['', Validators.required],
       telefono: ['', Validators.required]
+
+
+
 
       
   });

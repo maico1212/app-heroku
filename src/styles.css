@@ -9,12 +9,23 @@ body{
   margin-top: 100px;
 }
 
+/************** NAVBAR ******************/
+.navbar{
+  position: relative;
+  background-color: rgb(10, 10, 104);
+  list-style: none;
+  width: 1357px;
+  height: 110px;
+  margin-left: -116px;
+}
 .caja_navbar{
-  position: absolute;
-  width: 100%;
+  position: float;
+  width: 50%;
   margin-top: -48px;
   margin-left: -11px;
 }
+/************** FIN NAVBAR ******************/
+
 
 img{
   border: 0;
@@ -47,6 +58,8 @@ img{
   margin-top: 50px;
   
 }
+
+/******COLORES****/
 .ca{
   color: blue;
 }
@@ -64,8 +77,18 @@ img{
   color: #fa0202;
 }
 
+
+.ct{
+  position: absolute;
+  background-color: #5A71A6;
+  color: white;
+  border-radius: 20px;
+  margin-left: -90;
+}
+/******FIN COLORES****/
+
 .pef{
-  margin-top: 230px;
+  margin-top: 170px;
 }
 
 .iconn{
@@ -136,16 +159,15 @@ header{
     margin-right: 15px;
 }
 
-.navbar{
-  position: relative;
-  background-color: rgb(255, 255, 255);
-  list-style: none;
-  width: 1357px;
-  height: 110px;
-  margin-left: -116px;
-}
+
 .font_dis{
   font-size: medium;
+}
+.font_modal_header{
+  font-size: small;
+}
+.color_exp{
+  color: #5A71A6;
 }
 .cm{
   background-color: rgb(22, 22, 126);
@@ -170,9 +192,29 @@ header{
     height: 60px;
 }
 .buti {
-  margin-left: 40px;
-  width: 220px;
+  
+  margin-left: 15px;
+  width: 400px;
+  border-radius: 10px;
     height: 40px;
+    background-color: #5A71A6;
+    color: rgb(255, 255, 255);
+}
+
+.buti_calend{
+  margin-left: 15px;
+  width: 400px;
+}
+.buti_eliminar
+{
+  margin-left: 2px;
+  width: 428px;
+  background-color: white;
+  border-radius: 10px;
+  color: #5A71A6;
+  border: solid 1px #5A71A6;
+height: 40px;
+
 }
 
 .im{
@@ -206,8 +248,32 @@ header{
 
 .modal{
   margin-left: 420px;
+  
 }
 .mpreg{
+  margin-top: 150px;
+}
+
+.m_disponibilidad{
+  
+  margin-top: 200px;
+}
+.region{
+  background-color: #E7ECFF;;
+  display: flex;
+ 
+  flex-direction: column;
+  border-radius: 10px;
+
+}
+
+.text_region{
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.m_editar{
+
   margin-left: 0px;
   
 }
@@ -243,7 +309,7 @@ header{
 }
 
 .modal-header{
-  background-color: rgb(75, 75, 231);
+  background-color: #5A71A6;
 }
 .contbut{
   display: flex;
@@ -333,8 +399,27 @@ select{
   margin: 10px;
   height: 48px;
   border: solid 1px black;
-  margin-left: -40px;
-  width: 210px;
+  margin-left: 0px;
+  width: 183px;
+}
+
+.select_disp{
+  border-radius: 10px;
+  margin: 10px;
+  height: 48px;
+  border: solid 1px black;
+  margin-left: 0px;
+  width: 430px;
+
+}
+
+.select_reg{
+  border-radius: 10px;
+  margin: 10px;
+  height: 48px;
+  border: solid 1px black;
+  margin-left: 10px;
+  width: 400px;
 }
 
 .se{
@@ -431,10 +516,10 @@ select{
 
 
 @media (min-width: 992px){
-.navbar-expand-lg {
+   .navbar-expand-lg {
     justify-content: space-between;
     
-}
+   }
 }
 
 
@@ -457,19 +542,19 @@ button{
 #msform {
  
   margin-top: 30px;
-  background-color: rgb(255, 255, 255);
+  
   border-radius: 15px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
+  
 }
 
 #msform fieldset {
-  background: rgb(255, 255, 255);
+  background: rgb(255, 255, 255) ;
   border: 0 none;
   border-radius: 0px;
+  
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  height: 515px;
+ 
   padding: 20px 30px;
   box-sizing: border-box;
   width: 100%;
@@ -512,7 +597,7 @@ button{
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid #8e8aa7;
+  border: 1px solid #000000;
   outline-width: 0;
   transition: All 0.5s ease-in;
   -webkit-transition: All 0.5s ease-in;
@@ -532,7 +617,7 @@ button{
   margin: 10px 5px;
 }
 #msform .action-button:hover, #msform .action-button:focus {
-  box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+  box-shadow: 0 0 0 2px rgb(163, 11, 11), 0 0 0 3px #ee0979;
 }
 #msform .action-button-previous {
   width: 100px;
@@ -546,7 +631,7 @@ button{
   margin: 10px 5px;
 }
 #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-  box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+  box-shadow: 0 0 0 2px rgb(177, 19, 19), 0 0 0 3px #C5C5F1;
 }
 /*headings*/
 .fs-title {
@@ -568,7 +653,12 @@ button{
 #progressbar {
   margin-bottom: 30px;
   overflow: hidden;
+  
   height: 115px;
+  border-radius: 15px;
+  background-color: white;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
   /*CSS counters to number the steps*/
   counter-reset: step;
 }
@@ -576,7 +666,7 @@ button{
   list-style-type: none;
   color: rgb(0, 0, 0);
   font-size: 13px;
-  width: 16.33%;
+  width: 19.33%;
   float: left;
   position: relative;
   letter-spacing: 1px;
@@ -591,7 +681,7 @@ button{
   display: block;
   font-size: 12px;
   color: rgb(126, 11, 11);
-  background: white;
+  background: rgb(126, 11, 11);
   border-radius: 25px;
   margin: 0 auto 10px auto;
 }
@@ -614,11 +704,11 @@ button{
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before, #progressbar li.active:after {
   background: #bd1717;
-  color: rgb(255 255 255);
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 #progressbar li.inactive:before{
-  background: rgb(241, 219, 185);
+  background: rgb(182, 173, 173);
   color: #000;
   text-align: center;
 
@@ -695,6 +785,11 @@ button{
   width: 500px;
 }
 
+.tabler_volun{
+  width: 100%;
+  
+}
+
 
 .matsiv{
   position: absolute;
@@ -704,4 +799,34 @@ button{
     margin-left: -136px;
     margin-top: 62px;
     background-color: rgb(22, 22, 126);
+}
+
+.cp{
+  display: flex;
+  flex-direction: row;
+ 
+}
+
+.s{
+  position: absolute;
+  margin-top: -2px;
+  margin-left: 235px;
+}
+
+
+/*Desabilita inputs : IMPORTANTE!!!!!!*/
+div.disabled
+{
+  pointer-events: none;/*REALIZA ACCION NO CLICKEABLE*/
+  opacity: 0.5;
+  background: #CCC;
+}
+
+
+.sec{
+  font-weight: bold;
+  
+}
+.sec:hover{
+  cursor: pointer;
 }

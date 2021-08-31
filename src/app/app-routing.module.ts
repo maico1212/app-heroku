@@ -6,6 +6,7 @@ import { AuthGuard } from "./guards/auth.guard";
 import { LoginComponent } from "./pages/login/login.component";
 import { ProfileComponent } from "./pages/profile/profile.component";
 import { RegisterComponent } from "./pages/register/register.component";
+import { TareasComponent } from "./pages/tareas/tareas.component";
 import { VoluntariosComponent } from "./pages/voluntarios/voluntarios.component";
 
 const routes : Routes =  [ 
@@ -14,7 +15,7 @@ const routes : Routes =  [
   {path: 'voluntarios', component: VoluntariosComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-
+  {path: 'tareas', component: TareasComponent, canActivate: [AuthGuard] },
   {path: '**' ,pathMatch: 'full', redirectTo: 'login'}
 
 ];

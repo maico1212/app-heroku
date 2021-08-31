@@ -43,11 +43,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder
     
     
-    ) {
-
-    
-
-     }
+    ) {      }
 
 
   ngOnInit() {

@@ -27,7 +27,7 @@ import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
-
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 
@@ -40,6 +40,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { FormComponent } from './components/form/form.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VoluntariosComponent } from './pages/voluntarios/voluntarios.component';
+import { TareasComponent } from './pages/tareas/tareas.component';
 
 
 
@@ -51,7 +52,9 @@ import { VoluntariosComponent } from './pages/voluntarios/voluntarios.component'
     ProfileComponent,
     FormComponent,
     NavbarComponent,
-    VoluntariosComponent
+    VoluntariosComponent,
+    TareasComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

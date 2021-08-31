@@ -1,0 +1,56 @@
+<div *ngIf="auth.user | async as user">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4 sube_sidebar_tareas">
+           
+            <app-sidebar></app-sidebar>
+
+        </div>
+
+        <div class="listado col-md-8">
+            
+            <button mat-stroked-button class="ct">
+                <mat-icon>add</mat-icon>
+                Tarea
+            </button>
+
+            <table class="table table-borderless table-hover">
+             
+                <thead class="c">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Tareas</th>
+                        <th scope="col">Area o Sub area</th>
+                        <th scope="col">Fecha de Vigencia</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Diócesis</th>
+                        <th scope="col">Modalidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+
+    </div>
+
+
+       
+   </div>
+  
+  
+
+</div>
