@@ -1,56 +1,322 @@
-<div *ngIf="auth.user | async as user">
-  <div class="container">
-    <div class="row">
+<app-navbar></app-navbar>
+
+ 
         <div class="col-md-4 sube_sidebar_tareas">
-           
+
             <app-sidebar></app-sidebar>
 
         </div>
 
-        <div class="listado col-md-8">
-            
-            <button mat-stroked-button class="ct">
-                <mat-icon>add</mat-icon>
-                Tarea
-            </button>
+        <button (click)="crearTarea()" mat-raised-button class="but_tarea" data-bs-toggle="modal" data-bs-target="#modaltarea">
 
-            <table class="table table-borderless table-hover">
-             
-                <thead class="c">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Tareas</th>
-                        <th scope="col">Area o Sub area</th>
-                        <th scope="col">Fecha de Vigencia</th>
-                        <th scope="col">Region</th>
-                        <th scope="col">Diócesis</th>
-                        <th scope="col">Modalidad</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <mat-icon>add</mat-icon>Tarea
 
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
+        </button>
 
 
-            </table>
+        <div class="but_busca_tarea">
 
-
+            <input class="but_b fuente_sanl" type="text" placeholder="Buscar Tarea..." />
+            <label class="t">
+                <i class="icon-search"></i>
+            </label>
         </div>
 
 
+        <div class="vol_caja col-md-8">
+            <table class="table tabli_tarea table-borderless table-hover">
 
-    </div>
+                <thead class="c">
+                    <tr>
+                       
+                        <th>Tareas</th>    
+                        <th>Area / Sub Area</th>
+                        <th>Fecha de Finalizacion</th>
+                        <th>Modalidad</th>
+                        <th>Acciones</th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody class="cl">
+                    <tr *ngFor="let item of listado_Tareas;">
+                       
+
+                        <td class="tp">
+                            <p>{{ item.nombre }}</p>
+                        </td>
+                       
+               
+
+                        <td>
+                            <p>{{ item.area}}</p>
+
+                        </td>
+                        <td>
+                            <p>{{ item.fechaFin | date:'dd-MM-yyyy'}}</p>
+
+                        </td>
+
+                        <td>
+                            <p>{{ item.modalidad}}</p>
+                        </td>
+                       
+
+                        <td>
+                            <mat-icon style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#modalinfoTarea"
+                              (click)="ver_tarea(item.id)"  class="color_v">visibility</mat-icon> &nbsp;&nbsp;&nbsp;
+
+                         
 
 
-       
-   </div>
+                            <mat-icon style="cursor:pointer"  class="color_d" (click)="eliminarTarea(item.id)">
+                                delete
+                            </mat-icon>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <!-- MODAL CREAR TAREA -->
+            <div class="modal fade" id="modaltarea" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h5 class="modal-title desplaza cb" id="exampleModalLabel">Nueva Tarea</h5>
+
+                            <div class="redondo_t">
+                                <mat-icon class="cb c_reg reg" mat-list-icon>domain</mat-icon>
+                                <mat-icon class="cb war" mat-list-icon>warning</mat-icon>
+                            </div>
+                        <!--
+                            <mat-icon style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#modaleditar"
+                                class="cb lapiz_t" mat-list-icon (click)="habilita()">create</mat-icon>
+                        -->
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="datosTarea" (ngSubmit)="crear_tarea()">
+
+                                <div class="contenido_input_tarea">
+
+                                    <mat-form-field class="input" appearance="outline">
+                                        <mat-label>Nombre/s</mat-label>
+                                        <input type="text" matInput formControlName="nombre" name="nombre"
+                                            autocomplete="off">
+
+                                    </mat-form-field>
+
+                                    <mat-form-field class="input" appearance="outline">
+                                        <mat-label>Descripcion</mat-label>
+                                        <input type="text" matInput formControlName="descripcion" name="descripcion"
+                                            autocomplete="off">
+
+                                    </mat-form-field>
+                                    
+
+                                    <select class="select_modalidad" frmControlName="modalidad">
+                                    
+                                         
+                                        <option selected>Seleccione Modalidad</option>
+                                        <option *ngFor="let mod of modalida">
+                                            {{ mod }}
+                                          </option>
+                                     
+                                    </select>
+
+                                    <select class="select_area" frmControlName="area">
+                                        <option disabled selected value="">Seleccionar área/subárea</option>
+                                        <option value="educacion">Educacion</option>
+                                        <option value="primera_infancia">Primera Infancia</option>
+                                        <option value="addiciones">Addiciones</option>
+                                        <option value="economia_social_solitaria">Economía social y solitaria
+                                        </option>
+                                        <option value="habitat">Habitat</option>
+                                        <option value="respuestas_alimentaria">Respuestas alimentaria</option>
+                                        <option value="emergencias">Emergencias</option>
+                                        <option value="acompañamiento">Acompañamiento a las caritas diocesanas
+                                        </option>
+                                        <option value="ciudadania">Ciudadania</option>
+                                        <option value="equidad">Equidad</option>
+                                        <option value="ecologia">Ecologia Integral</option>
+                                    </select>
+
+                                    <mat-form-field class="input" appearance="outline">
+                                        <mat-label>Desde</mat-label>
+                                        <input type="date" matInput autocomplete="off" formControlName="fechaInicio">
+
+                                    </mat-form-field>
+
+                                    <mat-form-field class="input" appearance="outline">
+                                        <mat-label>Hasta</mat-label>
+                                        <input type="date" matInput autocomplete="off" formControlName="fechaFin">
+
+                                    </mat-form-field>
+
+                                    <div *ngFor="let region of guardaListado?.children; let i=index">
+                                      
+                                            <input type="checkbox" [value]="region?.id"
+                                                (change)="onCheckChange($event,i)">
+                                                 {{region?.name}}{{region?.id}}
+                                      
+
+                                        <div *ngFor="let diocesis of region?.children; let j=index">
+                                          
+                                              
+                                                <input class="arbol" [disabled]="!region.selected" type="checkbox" [value]="diocesis?.id"
+                                                    (change)="onCheckDiocesis($event,i)">
+
+                                                    <!--!datosTarea.value.estructura[i]?.idRegion === region.id-->
+                                                {{diocesis?.name}}  {{diocesis?.id}}
+                                           
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="buti_eliminar">{{unatarea?'Crear Tarea':'Guardar Cambios'}}</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+
+            <!------------------------------MODAL VER TAREA/ EDITAR----------------------------------->
+        <div class="modal fade" id="modalinfoTarea" tabindex="-1">
+
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content" *ngIf="unatarea">
+                <div class="modal-header c">
+                  <img class="img-fluid imodal" src="../../../assets/logito.jpg" alt="Image" />
+                  <div class="texts">
+                
+                 
+                    <p class="cb font_modal_header">{{unatarea.nombre}}</p>
+  
+                  <mat-icon class="cb" style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#modaleditar"
+                  class="cb lapiz_t" mat-list-icon (click)="habilita()">create</mat-icon>
+
+                    <div class="redondo">
+                      <mat-icon class="cb c_reg reg" mat-list-icon>domain</mat-icon>
+                      <mat-icon class="cb chec" mat-list-icon>check</mat-icon>
+                    </div>
+  
+                    <div class="redondoo">
+                      <mat-icon class="cb tar c_reg" mat-list-icon>assignment</mat-icon>
+                      <mat-icon class="cb war" mat-list-icon>warning</mat-icon>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+             <!--EDITARRR-->
+            
+                    <form [formGroup]="datosTarea" (ngSubmit)="editar_tarea(unatarea.id)">
+
+                        <div class="contenido_input_tarea">
+
+                            <mat-form-field class="input" appearance="outline">
+                                <mat-label>Nombre/s</mat-label>
+                                <input type="text" matInput formControlName="nombre" name="nombre"
+                                    autocomplete="off">
+
+                            </mat-form-field>
+
+                            <mat-form-field class="input" appearance="outline">
+                                <mat-label>Descripcion</mat-label>
+                                <input type="text" matInput formControlName="descripcion" name="descripcion"
+                                    autocomplete="off">
+
+                            </mat-form-field>
+
+                            <select class="select_modalidad" name="modalidad" id="" formControlName="modalidad">
+                            
+                                <option disabled selected value="">Modalidad</option>
+                                <option value="CercaniaVirtual">Virtual</option>
+                                <option value="PresenciaTerritorial">Presencial</option>
+
+                            </select>
+
+
+                            <select class="select_area" name="area" id="" formControlName="area">
+
+                                <option disabled selected value="">Seleccionar área/subárea</option>
+                                <option value="educacion">Educacion</option>
+                                <option value="primera_infancia">Primera Infancia</option>
+                                <option value="addiciones">Addiciones</option>
+                                <option value="economia_social_solitaria">Economía social y solitaria
+                                </option>
+                                <option value="habitat">Habitat</option>
+                                <option value="respuestas_alimentaria">Respuestas alimentaria</option>
+                                <option value="emergencias">Emergencias</option>
+                                <option value="acompañamiento">Acompañamiento a las caritas diocesanas
+                                </option>
+                                <option value="ciudadania">Ciudadania</option>
+                                <option value="equidad">Equidad</option>
+                                <option value="ecologia">Ecologia Integral</option>
+                            </select>
+
+
+
+                            <mat-form-field class="input" appearance="outline">
+                                <mat-label>Desde</mat-label>
+                                <input type="date" matInput autocomplete="off" formControlName="fechaInicio">
+
+                            </mat-form-field>
+
+                            <mat-form-field class="input" appearance="outline">
+                                <mat-label>Hasta</mat-label>
+                                <input type="date" matInput autocomplete="off" formControlName="fechaFin">
+
+                            </mat-form-field>
+
+                          
+                              <h5>Seleccione Estructura</h5>
+                              <hr>
+
+                            <div *ngFor="let region of guardaListado?.children; let i=index">
+                                <label>
+                                    <input type="checkbox"  (change)="onCheckChange($event,i)" [value]="region?.id"
+                                        (change)="onCheckChange($event,i)">
+                                    {{region?.name}}
+                                </label>
+                                 
+                                <div class="arbol" *ngFor="let diocesis of region?.children; let j=index">
+                                    <label>
+                                        
+                                        <input [disabled]="!region.selected" type="checkbox" [value]="diocesis?.id"
+                                            (change)="onCheckDiocesis($event,i)">
+                                        {{diocesis?.name}}
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <button type="submit" class="buti_eliminar"> Guardar Cambios</button>
+
+
+                        </div>
+
+                    </form>
+                    
+                
+                </div>
+  
+              </div>
+            </div>
+          </div>
   
   
+    
 
-</div>
+

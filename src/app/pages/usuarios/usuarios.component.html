@@ -1,0 +1,148 @@
+<div *ngIf="auth.user | async as user">
+  <app-navbar></app-navbar>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 sube_sidebar_usuarios">
+
+        <app-sidebar></app-sidebar>
+
+      </div>
+      <div class="col-md-8">
+         
+        <div class="but_busca_usuario">
+
+          <input class="but_b fuente_sanl" type="text" placeholder="Buscar Usuario..." />
+          <label class="s">
+              <i class="icon-search"></i>
+          </label>
+      </div>
+        <table class="table table-hover">
+          <thead class="c">
+            <tr>
+              <th>
+                Foto
+              </th>
+              
+              <th>
+                Nombre y Apellido
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Permisos
+              </th>
+
+              <th>
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          
+          <tbody class="c fuente_sanl">
+            <tr *ngFor="let item of users; let i=index">
+            
+              <td>
+                <div class="media">
+                  <img class="img-fluid circle im" src={{item.photoUrl}} alt="Image" />
+                </div>
+              </td>
+              <td class="tp">
+                <p>{{ item.displayName }}</p>
+              </td>
+              <td class="tp">
+                <p>{{ item.email}}</p>
+              </td>
+              <td>
+                <form [formGroup]="formClaim" (ngSubmit)="actualizar(item.uid,formClaim.value)" class="form">
+
+                  <select formControlName="admin"> 
+                        <!-- <option>Cáritas Nacional</option>-->
+                    <ng-container *ngFor="let region of guardaListado?.children; let i=index">
+
+                            <option value="region.name" >{{region?.name}}</option>
+
+                      <ng-container *ngFor="let diocesis of region?.children; let j=index"> 
+
+                        <option value="diocesis.name" [ngValue]="diocesis.id">&nbsp;&nbsp; {{diocesis?.name}}</option>
+
+                      </ng-container>
+                      
+                    </ng-container>
+                    
+                    
+                    
+                  </select>
+
+                  <!--
+                  <div class="form-check">
+
+                    <input formControlName="admin" class="form-check-input" type="checkbox" id="check{{i}}">
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                      <input *ngIf="item.customClaims.admin == true" checked disabled type="checkbox" />
+                      Administrador General
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="nacional" class="form-check-input" type="checkbox"
+                      value="item.customClaims.nacional == true" id="check{{i}}">
+                    <label class="form-check-label">
+                      <input *ngIf="item.customClaims.nacional == true" checked disabled type="checkbox" />
+
+                      Coordinador Nacional
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="regional" class="form-check-input" type="checkbox"
+                      value="item.customClaims.regional == true" id="check{{i}}">
+                    <label class="form-check-label">
+                      <input *ngIf="item.customClaims.regional == true" checked disabled type="checkbox" />
+                      Coordinador Regional
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="diocesano" class="form-check-input" type="checkbox"
+                      value="item.customClaims.diocesano == true" id="check{{i}}">
+                    <label class="form-check-label">
+                      <input *ngIf="item.customClaims.diocesano == true" checked disabled type="checkbox" />
+                      Gestor Diocesano
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="voluntario" class="form-check-input" type="checkbox"
+                      value="item.customClaims.voluntario == true" id="check{{i}}">
+                    <label class="form-check-label">
+                      <input *ngIf="item.customClaims.voluntario == true" checked disabled type="checkbox" />
+                      Voluntario
+                    </label>
+                  </div>
+
+
+                  <button mat-raised-button class="ba" type="submit"> Actualizar </button>
+                  &nbsp;
+                  <button mat-raised-button type="button" color="warn" class="bu" (click)="eliminar(item.uid)"> Eliminar
+                  </button>
+                  -->
+
+                </form>
+
+              </td>
+              <td>
+                <button type="submit"  mat-raised-button class="but_asig">Asignar</button>
+                &nbsp;&nbsp;
+                <mat-icon class="del">delete</mat-icon>
+              </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+
+  </div>
+  <router-outlet></router-outlet>
+</div>

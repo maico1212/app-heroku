@@ -20,14 +20,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import { MatCheckboxModule} from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
+import {  MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table'  
+import { MatPaginatorModule } from '@angular/material/paginator';
+
+
+
+
+
+
 
 
 
@@ -41,6 +51,15 @@ import { FormComponent } from './components/form/form.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VoluntariosComponent } from './pages/voluntarios/voluntarios.component';
 import { TareasComponent } from './pages/tareas/tareas.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { DropDownListAllModule, DropDownTreeModule } from '@syncfusion/ej2-angular-dropdowns'; //investigar
+import { MatSortModule } from '@angular/material/sort';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { MatMenuModule} from '@angular/material/menu';
+
+
 
 
 
@@ -54,7 +73,10 @@ import { TareasComponent } from './pages/tareas/tareas.component';
     NavbarComponent,
     VoluntariosComponent,
     TareasComponent,
-    SidebarComponent
+    SidebarComponent,
+    UsuariosComponent,
+    SidenavComponent
+ 
   ],
   imports: [
     BrowserModule,
@@ -80,14 +102,20 @@ import { TareasComponent } from './pages/tareas/tareas.component';
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
-    MatCardModule
-   
+    MatCardModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    DropDownTreeModule,
+    MatSortModule,
+    DropDownListAllModule,
+    DropDownListModule,
+    MatMenuModule
     
-    
-
- 
   
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })

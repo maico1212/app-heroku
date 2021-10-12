@@ -18,7 +18,7 @@ export class VoluntariosService {
      return this.http.get(environment.apiEndpoint + '/voluntarios');
    }
 
-   public findVoluntarios(id:any){     
+   public findVoluntario(id:any){     
     return this.http.get(environment.apiEndpoint + '/voluntarios/'+id);
   }
 
@@ -26,8 +26,8 @@ export class VoluntariosService {
     return this.http.delete(environment.apiEndpoint + '/voluntarios/'+ id); 
    }
 
-   public editVoluntario(voluntario:any){
-    return this.http.put(environment.apiEndpoint + '/voluntarios/',voluntario); 
+   public editVoluntario( id:any, voluntario:any){
+    return this.http.put(environment.apiEndpoint + '/voluntarios/'+ id, voluntario); 
    }
 
   /* cuidado con las direcciones. */

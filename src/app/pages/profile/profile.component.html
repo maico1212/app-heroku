@@ -1,4 +1,399 @@
 <div *ngIf="auth.user | async as user">
+  <div class="container">
+    <div class="col-4 sube_sidebar_home">
+
+      <app-sidebar></app-sidebar>
+
+    </div>
+    <app-navbar></app-navbar>
+
+    
+
+
+
+    <div class="pr_caja">
+      <div class="caja_bienvenida">
+        <img class="img-fluid imn_h" src={{user.photoURL}} alt="Image" />
+        <div>
+          <h2 class="mt-5">¡Bienvenido, {{user.displayName}}!</h2>
+          <p>Red de Voluntariado Joven</p>
+        </div>
+      </div>
+
+
+      <table class="table table-borderless table-hover tabla_uno">
+
+        <thead class="c">
+          <h3 class="text-center">Ultimas tareas de la semana</h3>
+          <tr class="d-flex">
+            <th class="col-4">Tarea</th>
+            <th class="col-4">Area o Sub area</th>
+            <th class="col-4">Modalidad</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Cuidado de Enfermos</td>
+            <td class="col-4">Emergencia</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Clases Particulares</td>
+            <td class="col-4">Educacion</td>
+            <td class="col-4">Virtual</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Manejo de Bibliotecas</td>
+            <td class="col-4">Educacion</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Limpieza de Escuela</td>
+            <td class="col-4">Ciudadania</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Acompañamiento</td>
+            <td class="col-4">Adicciones</td>
+            <td class="col-4">Virtual</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Clase de Futbol</td>
+            <td class="col-4">Habitat</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Huertas</td>
+            <td class="col-4">Ecologia Integral</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Fundacion de Tejidos</td>
+            <td class="col-4">Economia Social y Solidaria</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Armado de Muebles</td>
+            <td class="col-4">Equidad</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-4">Clases de Voley (Femenino)</td>
+            <td class="col-4">Habitat</td>
+            <td class="col-4">Presencial</td>
+
+          </tr>
+        
+        </tbody>
+
+
+      </table>
+
+
+      <table class="table table-borderless table-hover tabla_dos">
+
+        <thead class="c">
+          <h3 class="text-center">Ultimos voluntarios de la semana</h3>
+          <tr class="d-flex">
+            <th class="col-3">ID</th>
+            <th class="col-3">Nombre y Apellido</th>
+            <th class="col-3">Provincia</th>
+            <th class="col-3">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">13</td>
+            <td class="col-3">Pamela Gutierrez</td>
+            <td class="col-3">Mendoza</td>
+            <td class="col-3">3/06/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">14</td>
+            <td class="col-3">Yesica Aguirre</td>
+            <td class="col-3">Córdoba</td>
+            <td class="col-3">15/08/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">27</td>
+            <td class="col-3">Jorge Pérez</td>
+            <td class="col-3">CABA</td>
+            <td class="col-3">13/08/2021</td>
+
+          </tr>
+
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">30</td>
+            <td class="col-3">Ivana Diaz</td>
+            <td class="col-3">San Luis</td>
+            <td class="col-3">13/06/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">33</td>
+            <td class="col-3">Franco Castro</td>
+            <td class="col-3">San Juan</td>
+            <td class="col-3">23/06/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">35</td>
+            <td class="col-3">Yamila Benitez</td>
+            <td class="col-3">Jujuy</td>
+            <td class="col-3">3/07/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">38</td>
+            <td class="col-3">Martin Gimenez</td>
+            <td class="col-3">Santa Fé</td>
+            <td class="col-3">17/08/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">41</td>
+            <td class="col-3">Jorge Salinas</td>
+            <td class="col-3">Catamarca</td>
+            <td class="col-3">2/05/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">42</td>
+            <td class="col-3">Cecilia Sanchez</td>
+            <td class="col-3">Formosa</td>
+            <td class="col-3">9/09/2021</td>
+
+          </tr>
+          <tr class="d-flex fuente_sanl">
+            <td class="col-3">46</td>
+            <td class="col-3">Valentin Videla</td>
+            <td class="col-3">Santa Cruz</td>
+            <td class="col-3">7/09/2022</td>
+
+          </tr>
+        </tbody>
+
+
+      </table>
+    </div>
+  </div>
+
+
+
+
+  <router-outlet></router-outlet>
+      
+
+
+
+      <!--
+        <div class="caja_bienvenida">
+          <img class="img-fluid imn_h" src={{user.photoURL}} alt="Image" />
+          <div>
+            <h2 class="mt-5">¡Hola de nuevo, {{user.displayName}}!</h2>
+            <p>Red de Voluntariado Joven</p>
+          </div>
+        </div>
+
+        <div class="sg_caja">
+
+          <div class="caja_tabla">
+
+
+            <table class="table table-borderless table-hover" style="width: 550px;">
+
+              <thead class="c">
+                <h3 class="text-center">Ultimos voluntarios de la semana</h3>
+                <tr class="d-flex">
+                  <th class="col-3">ID</th>
+                  <th class="col-3">Nombre y Apellido</th>
+                  <th class="col-3">Provincia</th>
+                  <th class="col-3">Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+                <tr class="d-flex">
+                  <td class="col-3">Cuidado de Enfermos</td>
+                  <td class="col-3">San Juan</td>
+                  <td class="col-3">3/6/2022</td>
+                  <th class="col-3">Fecha</th>
+
+                </tr>
+              </tbody>
+
+
+            </table>
+          </div>
+
+        </div>
+
+
+        <div class="caja_tabla">
+
+
+          <table class="table table-borderless table-hover" style="width: 500px;">
+
+            <thead class="c">
+              <h3 class="text-center">Ultimas tareas de la semana</h3>
+              <tr class="d-flex">
+                <th class="col-4">Tarea</th>
+                <th class="col-4">Area o Sub area</th>
+                <th class="col-4">Modalidad</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4">Cuidado de Enfermos</td>
+                <td class="col-4">San Juan</td>
+                <td class="col-4">3/6/2022</td>
+
+              </tr>
+            </tbody>
+
+
+          </table>
+        </div>
+
+      </div>
+      -->
+  
+
+  <!--
   <app-navbar></app-navbar>
   <div class="container">
     <div class="row">
@@ -126,4 +521,5 @@
 
   </div>
   <router-outlet></router-outlet>
-</div>
+
+-->

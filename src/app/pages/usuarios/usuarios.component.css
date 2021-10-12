@@ -1,0 +1,41 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.0/css/font-awesome.css";
+
+.but_busca_usuario{
+    margin-top: -60px;
+    margin-left: 230px;
+    position: absolute;
+  
+}
+
+.but_b{
+    box-shadow: 0 0 0.3em rgb(60 60 60 / 40%);
+    border-radius: 11px;
+    outline: none;
+    width: 260px;
+    height: 36px;
+    margin-left: 220px;
+}
+
+ .s {
+    padding-left: 1px;
+    display: inline-block;
+    margin-top: 0.3em;
+    color: #dad0be;
+    text-shadow: 0 0 0.1em rgba(60,60,60,0.3);
+    position: relative;
+    left: 0.1em;
+    width: 40px;
+    margin-left: -30px;
+}
+
+.but_asig{
+    width: 81px;
+    background-color: #42B82F;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+}
+
+.del{
+    color: #AB1D22;
+}

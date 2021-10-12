@@ -1,1321 +1,1855 @@
-<div *ngIf="auth.user | async as user">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 sube_sidebar_volunt">
-              <app-sidebar></app-sidebar>
-            </div>
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="contenido_volunt">
 
-            <div class="listado col-md-8 mt-2">
-                <form class="form-inline busc">
-                    <input class="buto mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button mat-stroked-button class="cb">
-                        <mat-icon>search</mat-icon>
-                    </button>
+
+  <mat-form-field class="desplaza" appearance="standard">
+    <mat-label class="c">Buscar Voluntario </mat-label>
+
+    <input matInput (keyup)="applyFilter($event)" #input>
+
+  </mat-form-field>
+  <mat-icon class="icon_buscador">search</mat-icon>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+
+    <!-- Nombre -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> Nombre y Apellido </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} {{element.apellido}}</td>
+    </ng-container>
+
+    <!-- Apellido -->
+    <ng-container matColumnDef="apellido">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> Apellido </th>
+      <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+    </ng-container>
+
+    <!-- Correo -->
+    <ng-container matColumnDef="correo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> Correo </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- DNI-->
+    <ng-container matColumnDef="dni">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> DNI </th>
+      <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+    </ng-container>
+
+    <!-- PROVINCIA -->
+    <ng-container matColumnDef="provincia">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> Provincia </th>
+      <td mat-cell *matCellDef="let element"> {{element.provincia}} </td>
+    </ng-container>
+
+    <!-- CIUDAD -->
+    <ng-container matColumnDef="ciudad">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> Ciudad </th>
+      <td mat-cell *matCellDef="let element"> {{element.residencia}} </td>
+    </ng-container>
+
+    <!-- ESTADO -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-weight: 600;"> Estado </th>
+      <td mat-cell *matCellDef="let element">
+
+        <div class="redondo_tabla">
+
+          <div class="redondo_tabla">
+            <mat-icon class="cb c_reg reg" mat-list-icon>domain</mat-icon>
+            <mat-icon class="cv reg" mat-list-icon>check</mat-icon>
+
+          </div>
+          &nbsp;
+
+          <div class="redondo_tabla_t">
+
+            <mat-icon class="cb tar c_reg" mat-list-icon>assignment</mat-icon>
+            <mat-icon class="cb war" mat-list-icon>warning</mat-icon>
+
+          </div>
+        </div>
+
+
+      </td>
+    </ng-container>
+
+
+
+    <!-- ACCION -->
+    <ng-container matColumnDef="accion">
+
+      <th mat-header-cell *matHeaderCellDef style="font-weight: 600;"> &nbsp; &nbsp; &nbsp; Acciones </th>
+      <td mat-cell *matCellDef="let element">
+
+        <button class="desplaza_acciones" mat-icon-button [matMenuTriggerFor]="menu">
+
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu class="menuMaterial" #menu="matMenu">
+
+          <button mat-menu-item style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#modalinfo"
+            class="color_v" (click)="ver_voluntario(element)">
+            <mat-icon>visibility</mat-icon>
+            <span>Ver</span>
+          </button>
+
+          <button mat-menu-item mat-menu-item style="cursor:pointer" class="color_v" data-bs-toggle="modal"
+            data-bs-target="#modaleditar" (click)="moda_editar(element)">
+            <mat-icon>create</mat-icon>
+            <span>Editar</span>
+          </button>
+
+          <button mat-menu-item (click)="eliminarVoluntario(element.id)" class="color_d">
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar</span>
+          </button>
+
+        </mat-menu>
+
+        <!----------------------Modales-------------------------------->
+
+        <!------------------------------MODAL PRINCIPAL----------------------------------->
+        <div class="modal fade" id="modalinfo" tabindex="-1">
+
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content" *ngIf="volunt">
+              <div class="modal-header c">
+                <img class="img-fluid imodal" src="../../../assets/logito.jpg" alt="Image" />
+                <div class="texts">
+                  <h5 class="modal-title" id="exampleModalLabel"></h5>
+                  <h5 class="cb">{{volunt.nombre}},{{volunt.apellido}}</h5>
+
+                  <p class="cb font_modal_header">{{volunt.provincia}}, Argentina</p>
+
+                  <div class="redondo">
+                    <mat-icon class="cb c_reg reg" mat-list-icon>domain</mat-icon>
+                    <mat-icon class="cb chec" mat-list-icon>check</mat-icon>
+                  </div>
+
+                  <div class="redondoo">
+                    <mat-icon class="cb tar c_reg" mat-list-icon>assignment</mat-icon>
+                    <mat-icon class="cb war" mat-list-icon>warning</mat-icon>
+                  </div>
+                </div>
+
+                <!--EDITAR-->
+                <mat-icon style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#modaleditar" class="cb lapiz"
+                  mat-list-icon (click)="moda_editar(volunt)">create</mat-icon>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <div class="modal-body c">
+                <h5 class="color_exp">Experiencia</h5>
+                <h6>¿Perteneces a algun movimiento, organización o pastoral eclesial o social?</h6>
+
+
+                <h6>¿Cuál?</h6>
+
+                <span *ngIf="!editarPreguntas">{{ volunt.movimiento?'Si' : 'No'}},&nbsp;{{volunt.agrupacion}}
+                </span>
+
+
+                <input *ngIf="editarPreguntas" type="text">
+                <button *ngIf="editarPreguntas">Guardar</button>
+
+
+
+                <h6>¿Que tipo de experiencia de voluntariado te gustaria realizar?</h6>
+                <span>{{volunt.experiencia}}</span>
+
+                <div class="cp">
+                  <h6>¿Cuenta con movilidad propia? </h6>
+                  &nbsp;
+                  <span class="s">{{volunt.movilidad?'Si' : 'No'}}</span>
+                </div>
+
+
+                <hr>
+                <h5 class="color_exp">Datos Principales</h5>
+
+                <div class="contbut">
+
+                  <select class="select_disp form-select" data-bs-toggle="modal" data-bs-target="#modaldisponibilidad"
+                    class="select_disp form-select" aria-label="Default select example">
+
+
+                    <option selected (click)="disponibilidad(volunt.id)">Disponibilidad Horaria</option>
+
+
+                  </select>
+
+                </div>
+
+                <div class="contbut">
+
+                  <select selected mat-stroked-button color="primary" data-bs-toggle="modal"
+                    data-bs-target="#modalpreguntas" class="select_disp form-select"
+                    aria-label="Default select example">
+
+
+                    <option selected>Preguntas</option>
+                  </select>
+                </div>
+
+                <hr>
+
+                <div class="region">
+
+                  <h5 class="text_region">Estructura Organizativa</h5>
+
+
+                  <form [formGroup]="Organizativa" (ngSubmit)="guarda_Diocesis(volunt.id)">
+                    <select (ngModelChange)="findTareas()" formControlName="diocesisId" class="select_reg form-select">
+
+                      <ng-container *ngFor="let region of guardaListado?.children; let i=index">
+
+                        <option disabled>{{region?.name}}</option>
+
+                        <ng-container *ngFor="let diocesis of region?.children; let j=index">
+
+                          <option [ngValue]="diocesis.id"> &nbsp;&nbsp; {{diocesis?.name}}</option>
+
+                        </ng-container>
+
+                      </ng-container>
+
+                    </select>
+
+                    <button class="buti" type="submit"> Asignar Diocesis</button>
+
+                  </form>
+
+                  <!--
+                  <h5 class="text_region">Estructura Organizativa</h5>
+
+                  <ejs-dropdownlist id='ddlelement' [dataSource]='organismos' placeholder='Seleccione Estructura'></ejs-dropdownlist>
+                            
+
+                  <ejs-dropdowntree #dropdownTree allowFiltering="true" filterType="Contains" id='dropdowntree'
+                    [fields]='fieldsTree' placeholder='Organismo'></ejs-dropdowntree> -->
+
+                </div>
+
+
+                <hr>
+
+
+
+                <div class="region" [ngClass]="{'disabled': volunt.diocesis? false : true }">
+
+
+                  <form [formGroup]="datosTarea" (ngSubmit)="asig_Tarea(datosTarea.value, volunt.id)">
+
+                    <h5 class="text_region">Tarea</h5>
+
+                    <select class="select_reg form-select" aria-label="Default select example" formControlName="tareaId"
+                      placeholder="Seleccionar Tarea">
+
+                      <option *ngFor="let tarea of listado_Tareas" [ngValue]="tarea.id">
+                        {{tarea.nombre}} </option>
+
+
+                    </select>
+
+
+                    <label class="text_region">Desde</label>
+                    <input class="form-control buti_calend" type="date" placeholder="Desde"
+                      formControlName="fechaInicio">
+
+                    <label class="text_region">Hasta</label>
+                    <input class="form-control buti_calend" type="date" placeholder="Hasta" formControlName="fechaFin">
+
+                    <button type="submit" class="buti mt-2">ASIGNAR TAREA</button>
+                    <!--<button *ngIf="!bndTarea" class="buti mt-2">QUITAR TAREA</button>-->
+                  </form>
+                </div>
+
+
+                <button class="buti_eliminar mt-3" (click)="eliminarVoluntario(volunt.id)"><strong>ELIMINAR
+                    USUARIO</strong>
+                </button>
+
+
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <!--------------------------------------------------------------------------------->
+
+
+        <!------------------------------MODAL DE PREGUNTAS----------------------------------->
+
+        <div class="modal fade mpreg" id="modalpreguntas" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true" *ngIf="volunt">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-body">
+
+                <p>¿Te encontrás dentro de algun grupo de riesgo o convivis con personas que sí
+                  lo estan?</p>
+                <h6>{{volunt.riesgo?'Si':'No'}}</h6>
+
+                <p>¿Perteneces a algún movimiento, organizacion o pastoral eclesial o social?
+                  ¿Cuál?
+                </p>
+                <h6>{{volunt.movimiento?'Si':'No'}},&nbsp;{{volunt.agrupacion}}</h6>
+
+                <p>¿Tienes alguna enfermedad crónica o estas realizando algún tratamiento
+                  médico?</p>
+                <h6>{{volunt.enfermedad?'Si':'No'}}</h6>
+
+
+                <p>¿Tienes cobertura médica?</p>
+                <h6>{{volunt.cobertura?'Si':'No'}}</h6>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-------  MODAL DISPONIBILIDAD ------->
+        <div class="modal fade m_disponibilidad" id="modaldisponibilidad" tabindex="-1"
+          aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-body">
+
+
+                <table class="tabler_volun table-hover">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Día </th>
+                      <th class="text-center">1hs</th>
+                      <th class="text-center">2hs </th>
+                      <th class="text-center">3hs</th>
+                      <th class="text-center">4hs</th>
+                      <th class="text-center">+4hs</th>
+                      <th class="text-center">No disp.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <th>Lun</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled [checked]="volunt.lunes == 'UNA_HORA'" class="mt-1" type="radio" name="lunes"
+                                value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" [checked]="volunt.lunes == 'DOS_HORAS'" type="radio" name="lunes"
+                                value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" [checked]="volunt.lunes == 'TRES_HORA'" type="radio" name="lunes"
+                                value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" [checked]="volunt.lunes == 'CUATRO_HORA'" type="radio" name="lunes"
+                                value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" [checked]="volunt.lunes == 'MAS_DE_4_HORAS'" type="radio" name="lunes"
+                                value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" [checked]="volunt.lunes == 'NO_TENGO_DISPONIBILIDAD'" type="radio"
+                                name="lunes" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                    </tr>
+
+                    <tr>
+                      <th>Mar</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled  class="mt-1" type="radio" name="martes" value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input  disabled class="mt-1" type="radio" name="martes" value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="martes" value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="martes" value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="martes" value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="martes" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                    </tr>
+
+                    <tr>
+                      <th>Mié</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="miercoles" value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="miercoles" value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="miercoles" value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="miercoles" value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="miercoles" value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="miercoles" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+
+                    </tr>
+
+                    <tr>
+                      <th>Jue</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="jueves" value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="jueves" value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="jueves" value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="jueves" value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="jueves" value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="jueves" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+
+                    </tr>
+
+                    <tr>
+                      <th>Vie</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="viernes" value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input  disabled class="mt-1" type="radio" name="viernes" value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="viernes" value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="viernes" value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="viernes" value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="viernes" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+
+                    </tr>
+
+                    <tr>
+                      <th>Sáb</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="sabado" value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="sabado" value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="sabado" value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="sabado" value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="sabado" value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="sabado" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+
+                    </tr>
+
+
+                    <tr>
+                      <th>Dom</th>
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="domingo" value="UNA_HORA">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="domingo" value="DOS_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="domingo" value="TRES_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="domingo" value="CUATRO_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+                      <td>
+
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="domingo" value="MAS_DE_4_HORAS">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+                      <td>
+
+                        <label class="input-group mb-0">
+                          <span class="form-control btn">
+                            <span class="input-group-addon">
+                              <input disabled class="mt-1" type="radio" name="domingo" value="NO_TENGO_DISPONIBILIDAD">
+
+                            </span>
+                          </span>
+                        </label>
+
+                      </td>
+
+
+                    </tr>
+
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!--
+        <mat-icon style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#modaleditar"
+          (click)="moda_editar(element.id)" class="color_e">edit</mat-icon>&nbsp;-->
+
+
+        <!------------------------------MODAL EDITAR DATOS DE VOLUNTARIOS ----------------------------------->
+
+        <div class="modal fade m_editar" id="modaleditar" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content" *ngIf="datos">
+              <div class="modal-body">
+                <h3 class="text-center" style="color: rgb(10, 10, 104) !important; font-weight: 600;">Editar Datos de
+                  Voluntarios</h3>
+
+                <form [formGroup]="datosEditar" class="c" id="msform" (ngSubmit)="editar_Voluntario(datos.id)">
+                  <!-- fieldsets -->
+                  <hr>
+                  <h2 class="fs-title" style="color:rgb(10, 10, 104) !important;">Datos Principales</h2>
+                  <div class="contenido_input_edit mt-4">
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Nombre/s</mat-label>
+                      <input type="text" matInput name="nombre" autocomplete="off" formControlName="nombre">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Apellido/s</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="apellido">
+
+                    </mat-form-field>
+
+                    <!--
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Edad</mat-label>
+                      <input type="number" matInput autocomplete="off" formControlName="edad">
+
+                    </mat-form-field>-->
+
+
+
+                  </div>
+
+
+                  <div class="contenido_input_edit mt-4">
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>DNI</mat-label>
+                      <input type="number" matInput placeholder="Sin 0 y sin 15" autocomplete="off"
+                        formControlName="dni">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Nacimiento</mat-label>
+                      <input type="date" matInput autocomplete="off" formControlName="nacimiento">
+
+                    </mat-form-field>
+
+
+                  </div>
+
+
+                  <div class="contenido_input_edit mt-4">
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Teléfono</mat-label>
+                      <input type="number" matInput placeholder="Sin 0 y sin 15" autocomplete="off"
+                        formControlName="telefono">
+
+                    </mat-form-field>
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Ocupación</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="ocupacion">
+
+                    </mat-form-field>
+
+                  </div>
+
+
+                  <div class="contenido_input mt-4">
+                    <mat-form-field class="input_correo" appearance="outline">
+                      <mat-label>Correo Eletrónico</mat-label>
+                      <input type="email" matInput autocomplete="off" formControlName="email">
+
+                    </mat-form-field>
+
+                  </div>
+
+                  <hr>
+
+
+
+                  <h2 class="fs-title" style="color:rgb(10, 10, 104) !important;">Residencia</h2>
+
+                  <div class="contenido_input_edit">
+
+
+                    <!--
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Provincia</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="provincia">
+
+                    </mat-form-field>-->
+
+
+                  
+                      <label>Provincia</label>
+          
+                      <select class="selprov" formControlName="provincia">
+                        <option *ngFor="let provincia of provincias" value="{{provincia}}">{{provincia}}</option>
+          
+                      </select>
+          
+          
+                   
+
+
+                    <mat-form-field class="input" appearance="outline">
+                      <mat-label>Ciudad de Residencia</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="residencia">
+
+                    </mat-form-field>
+                  </div>
+
+
+                  <div class="contenido_input_edit_ecl">
+                    <label class="mt-3">¿Perteneces a algún movimiento, organizacion o pastoral eclesial o
+                      social?¿Cuál?</label>
+
+
+
+                    <div class="contenido_input_cual">
+
+                      <!--
+                      <mat-radio-group name="movimiento" class="cont_check" formControlName="movimiento">
+                        <label class="example-margin">Si</label>
+                        <mat-radio-button [checked]="datos.movimiento" class="example-margin" value="true">
+                        </mat-radio-button>
+                        <label class="example-margin">No</label>
+                        <mat-radio-button [checked]="!datos.movimiento" class="example-margin" value="false">
+                        </mat-radio-button>
+                      </mat-radio-group>-->
+
+
+                      <mat-form-field class="input" appearance="outline">
+                        <mat-label>¿Cuál?</mat-label>
+                        <input type="text" matInput autocomplete="off" formControlName="agrupacion">
+
+                      </mat-form-field>
+
+
+
+                    </div>
+                  </div>
+
+
+                  <div class="contenido_input">
+
+                    <mat-form-field class="input_correo" appearance="outline">
+                      <mat-label>Dirección (Calle y Num)</mat-label>
+                      <input type="text" matInput autocomplete="off" formControlName="direccion">
+
+                    </mat-form-field>
+
+                  </div>
+
+
+                  <hr>
+
+
+                  <h2 class="fs-title">Salud</h2>
+
+                  <div class="contenido_input_edit_ecl">
+
+
+                    <label>¿Te encontras dentro de algun grupo de riesgo o convivis con personas que si lo
+                      estan?</label>
+
+                    <div class="contenido_input_salud">
+
+                      <mat-radio-group class="cont_check  mt-3" formControlName="riesgo">
+                        <label class="example-margin">Si</label>
+                        <mat-radio-button [checked]="datos.riesgo" class="example-margin" value="true">
+                        </mat-radio-button>
+                        <label class="example-margin">No</label>
+                        <mat-radio-button [checked]="!datos.riesgo" class="example-margin" value="false">
+                        </mat-radio-button>
+                      </mat-radio-group>
+
+
+                    </div>
+
+
+                    <label class="mt-4">¿Tiene alguna enfermedad crónica o estas realizando algún tratamiento
+                      médico?</label>
+
+
+                    <div class="contenido_input_salud">
+
+                      <mat-radio-group name="enfermedad" class="cont_check  mt-3" formControlName="enfermedad">
+                        <label class="example-margin">Si</label>
+                        <mat-radio-button [checked]="datos.enfermedad" class="example-margin" value="true">
+                        </mat-radio-button>
+                        <label class="example-margin">No</label>
+                        <mat-radio-button [checked]="!datos.enfermedad" class="example-margin" value="false">
+                        </mat-radio-button>
+                      </mat-radio-group>
+
+                    </div>
+
+
+                    <label class="mt-4">¿Tiene cobertura médica?</label>
+
+                    <div class="contenido_input_salud">
+
+                      <mat-radio-group name="cobertura" class="cont_check mt-3" formControlName="cobertura">
+                        <label class="example-margin">Si</label>
+                        <mat-radio-button [checked]="datos.cobertura" class="example-margin" value="true">
+                        </mat-radio-button>
+                        <label class="example-margin">No</label>
+                        <mat-radio-button [checked]="!datos.cobertura" class="example-margin" value="false">
+                        </mat-radio-button>
+                      </mat-radio-group>
+
+                    </div>
+
+
+
+                  </div>
+                  <hr>
+
+                  <h2 class="fs-title" style="color:rgb(10, 10, 104) !important;">Tipo de Experiencia</h2>
+
+
+
+                  <label>¿Que tipo de experiencia de voluntariado te gustaria realizar?</label>
+
+                  <div class="md-roweapr">
+                    <mat-radio-group name="experiencia" class="cont_check mt-3" formControlName="experiencia">
+                      <mat-radio-button [checked]="datos.experiencia =='CercaniaVirtual'" class="example-margin"
+                        value="CercaniaVirtual"></mat-radio-button>
+                      <label class="example-margin"> #CercaniaVirtual: Algunas de las posibles acciones tienen que ver
+                        con una #CercaniaVitual, es decir, son
+                        acciones que pueden realizarse desde casa y
+                        desde la virtualidad.</label>
+
+                      <mat-radio-button [checked]="datos.experiencia == 'PresenciaTerritorial'" class="example-margin"
+                        value="PresenciaTerritorial"></mat-radio-button>
+                      <label class="example-margin">#PresenciaTerritorial: Otras de las posibles acciones corresponden a
+                        una
+                        #PresenciaTerritorial, es decir, que se propone una acción en algún lugar
+                        donde se dará un encuentro con distintas personas.</label>
+                    </mat-radio-group>
+                  </div>
+
+                  <label>¿Tienes movilidad?</label>
+
+                  <div class="contenido_input_salud">
+
+                    <mat-radio-group class="cont_check  mt-3" formControlName="movilidad">
+                      <label class="example-margin">Si</label>
+                      <mat-radio-button [checked]="datos.movilidad" class="example-margin" value="true">
+                      </mat-radio-button>
+                      <label class="example-margin">No</label>
+                      <mat-radio-button [checked]="!datos.movilidad" class="example-margin" value="false">
+                      </mat-radio-button>
+                    </mat-radio-group>
+
+
+                  </div>
+
+
+
+
+                  <hr>
+
+                  <h2 class="fs-title" style="color:rgb(10, 10, 104) !important;">Disponibilidad Horaria</h2>
+                  <table class="tabler_volun table-hover">
+                    <thead>
+                      <tr>
+                        <th>Día</th>
+                        <th>1hs</th>
+                        <th>2hs</th>
+                        <th>3hs</th>
+                        <th>4hs</th>
+                        <th>+4hs</th>
+                        <th>No Disp.</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Lun</th>
+                        <td>
+                          <label class="input-group">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.lunes == 'UNA_HORA'" class="mt-1" type="radio" name="lunes"
+                                  value="UNA_HORA" formControlName="lunes">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.lunes == 'DOS_HORAS'" class="mt-1" type="radio" name="lunes"
+                                  value="DOS_HORAS" formControlName="lunes">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.lunes == 'TRES_HORAS'" class="mt-1" type="radio" name="lunes"
+                                  value="TRES_HORAS" formControlName="lunes">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.lunes == 'CUATRO_HORAS'" class="mt-1" type="radio" name="lunes"
+                                  value="CUATRO_HORAS" formControlName="lunes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.lunes == 'MAS_DE_4_HORAS'" class="mt-1" type="radio"
+                                  name="lunes" value="MAS_DE_4_HORAS" formControlName="lunes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.lunes == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1" type="radio"
+                                  name="lunes" value="NO_TENGO_DISPONIBILIDAD" formControlName="lunes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <th>Mar</th>
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.martes == 'UNA_HORA'" class="mt-1" type="radio" name="martes"
+                                  value="UNA_HORA" formControlName="martes">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.martes == 'DOS_HORAS'" class="mt-1" type="radio" name="martes"
+                                  value="DOS_HORAS" formControlName="martes">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.martes == 'TRES_HORAS'" class="mt-1" type="radio" name="martes"
+                                  value="TRES_HORAS" formControlName="martes">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.martes == 'CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="martes" value="CUATRO_HORAS" formControlName="martes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.martes == 'MAS_DE_4_HORAS'" class="mt-1" type="radio"
+                                  name="martes" value="MAS_DE_4_HORAS" formControlName="martes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.martes == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1" type="radio"
+                                  name="martes" value="NO_TENGO_DISPONIBILIDAD" formControlName="martes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th>Mié</th>
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.miercoles == 'UNA_HORA'" class="mt-1" type="radio"
+                                  name="miercoles" value="UNA_HORA" formControlName="miercoles">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.miercoles == 'DOS_HORAS'" class="mt-1" type="radio"
+                                  name="miercoles" value="DOS_HORAS" formControlName="miercoles">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.miercoles == 'TRES_HORAS'" class="mt-1" type="radio"
+                                  name="miercoles" value="TRES_HORAS" formControlName="miercoles">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.miercoles == 'CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="miercoles" value="CUATRO_HORAS" formControlName="miercoles">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.miercoles == 'MAS_DE_CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="miercoles" value="MAS_DE_4_HORAS" formControlName="miercoles">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.miercoles == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1"
+                                  type="radio" name="miercoles" value="NO_TENGO_DISPONIBILIDAD"
+                                  formControlName="miercoles">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+
+                      </tr>
+
+                      <tr>
+                        <th>Jue</th>
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.jueves == 'UNA_HORA'" class="mt-1" type="radio" name="jueves"
+                                  value="UNA_HORA" formControlName="jueves">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.jueves == 'DOS_HORAS'" class="mt-1" type="radio" name="jueves"
+                                  value="DOS_HORAS" formControlName="jueves">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.jueves == 'TRES_HORAS'" class="mt-1" type="radio" name="jueves"
+                                  value="TRES_HORAS" formControlName="jueves">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.jueves == 'CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="jueves" value="CUATRO_HORAS" formControlName="jueves">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.jueves == 'MAS_DE_CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="jueves" value="MAS_DE_4_HORAS" formControlName="jueves">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.jueves == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1" type="radio"
+                                  name="jueves" value="NO_TENGO_DISPONIBILIDAD" formControlName="jueves">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+
+                      </tr>
+                      <tr>
+                        <th>Vie</th>
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.viernes == 'UNA_HORA'" class="mt-1" type="radio" name="viernes"
+                                  value="UNA_HORA" formControlName="viernes">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.viernes == 'DOS_HORAS'" class="mt-1" type="radio" name="viernes"
+                                  value="DOS_HORAS" formControlName="viernes">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.viernes == 'TRES_HORAS'" class="mt-1" type="radio"
+                                  name="viernes" value="TRES_HORAS" formControlName="viernes">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.viernes == 'CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="viernes" value="CUATRO_HORAS" formControlName="viernes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.viernes == 'MAS_DE_4_HORAS'" class="mt-1" type="radio"
+                                  name="viernes" value="MAS_DE_4_HORAS" formControlName="viernes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.viernes == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1" type="radio"
+                                  name="viernes" value="NO_TENGO_DISPONIBILIDAD" formControlName="viernes">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+
+                      </tr>
+
+                      <tr>
+                        <th>Sáb</th>
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.sabado == 'UNA_HORA'" class="mt-1" type="radio" name="sabado"
+                                  value="UNA_HORA" formControlName="sabado">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.sabado == 'DOS_HORA'" class="mt-1" type="radio" name="sabado"
+                                  value="DOS_HORAS" formControlName="sabado">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.sabado == 'TRES_HORAS'" class="mt-1" type="radio" name="sabado"
+                                  value="TRES_HORAS" formControlName="sabado">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.sabado == 'CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="sabado" value="CUATRO_HORAS" formControlName="sabado">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.sabado == 'MAS_DE_4_HORAS'" class="mt-1" type="radio"
+                                  name="sabado" value="MAS_DE_4_HORAS" formControlName="sabado">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.sabado == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1" type="radio"
+                                  name="sabado" value="NO_TENGO_DISPONIBILIDAD" formControlName="sabado">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+
+                      </tr>
+
+
+                      <tr>
+                        <th>Dom</th>
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.domingo == 'UNA_HORA'" class="mt-1" type="radio" name="domingo"
+                                  value="UNA_HORA" formControlName="domingo">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.domingo == 'DOS_HORAS'" class="mt-1" type="radio" name="domingo"
+                                  value="DOS_HORAS" formControlName="domingo">
+
+                              </span>
+                            </span>
+                          </label>
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.domingo == 'TRES_HORAS'" class="mt-1" type="radio"
+                                  name="domingo" value="TRES_HORAS" formControlName="domingo">
+
+                              </span>
+                            </span>
+                          </label>
+
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.domingo == 'CUATRO_HORAS'" class="mt-1" type="radio"
+                                  name="domingo" value="CUATRO_HORAS" formControlName="domingo">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                        <td>
+
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.domingo == 'MAS_DE_4_HORAS'" class="mt-1" type="radio"
+                                  name="domingo" value="MAS_DE_4_HORAS" formControlName="domingo">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+
+                        <td>
+
+                          <label class="input-group mb-0">
+                            <span class="form-control btn">
+                              <span class="input-group-addon">
+                                <input [checked]="datos.domingo == 'NO_TENGO_DISPONIBILIDAD'" class="mt-1" type="radio"
+                                  name="domingo" value="NO_TENGO_DISPONIBILIDAD" formControlName="domingo">
+
+                              </span>
+                            </span>
+                          </label>
+
+                        </td>
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+
+
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" value="Actualizar" (click)="refrescar()">Actualizar
+                      Cambios</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+
+                  </div>
+
                 </form>
 
-                <table class="table table-borderless table-hover">
-                  
-                    <thead class="c">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre y Apellido</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">DNI</th>
-                            <th scope="col">Provincia</th>
-                            <th scope="col">Ciudad</th>
-                        </tr>
-                    </thead>
-                    <tbody class="c">
-                        <tr style="cursor:pointer" *ngFor="let item of json; index as i;">
-                            <th scope="row">{{i+1}}</th>
-                            <!-- Button trigger modal -->
-                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
-                                {{item.nombre}}
-                                {{item.apellido}} </td>
-
-                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
-                                {{item.email}} </td>
-
-                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
-                                {{item.telefono}}</td>
-                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
-                                {{item.dni}}</td>
-                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
-                                {{item.provincia}}</td>
-                            <td data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="voluntar(item.id)">
-                                {{item.residencia}}</td>
-
-
-
-                        </tr>
-
-                        <!------------------------------MODAL PRINCIPAL----------------------------------->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true" *ngIf="volunt">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header c">
-                                        <img class="img-fluid imodal" src="../../../assets/logito.jpg" alt="Image" />
-                                        <div class="texts">
-                                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                            <h5 class="cb">{{volunt.nombre}},{{volunt.apellido}}</h5>
-
-                                            <p class="cb font_modal_header">{{volunt.provincia}}, Argentina</p>
-
-                                            <mat-icon class="cb reg" mat-list-icon>domain</mat-icon>
-                                            <mat-icon class="cb chec" mat-list-icon>check</mat-icon>
-
-                                            <mat-icon class="cb tar" mat-list-icon>assignment</mat-icon>
-                                            <mat-icon class="cb war" mat-list-icon>warning</mat-icon>
-
-                                        </div>
-
-                                        <mat-icon data-bs-toggle="modal" data-bs-target="#modaleditar" class="cb lapiz"
-                                            mat-list-icon (click)="editar()">create</mat-icon>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-
-
-
-
-
-                                    </div>
-
-                                    <div class="modal-body c">
-                                        <h5 class="color_exp">Experiencia</h5>
-                                        <h6>¿Perteneces a algun movimiento, organización o pastoral eclesial o social?
-                                        </h6>
-                                        <h6>¿Cuál?</h6>
-
-                                        <span>{{ volunt.movimiento?'Si' : 'No'}},&nbsp;{{volunt.agrupacion}} </span>
-
-
-
-
-                                        <h6>¿Que tipo de experiencia de voluntariado te gustaria realizar?</h6>
-                                        <span>{{volunt.experiencia}}</span>
-
-                                        <div class="cp">
-                                            <h6>¿Cuenta con movilidad propia? </h6>
-                                            &nbsp;
-                                            <span class="s">{{volunt.movilidad?'Si' : 'No'}}</span>
-                                        </div>
-                                        <hr>
-                                        <h5 class="color_exp">Datos Principales</h5>
-
-                                        <div class="contbut">
-
-                                            <select class="select_disp form-select" data-bs-toggle="modal"
-                                            data-bs-target="#modaldisponibilidad" class="select_disp form-select" aria-label="Default select example">
-
-
-                                                <option selected>Disponibilidad Horaria</option>
-                                              
-
-                                            </select>
-                                        </div>
-
-                                        <div class="contbut">
-
-                                            <select selected mat-stroked-button color="primary" data-bs-toggle="modal"
-                                                data-bs-target="#modalpreguntas" class="select_disp form-select"
-                                                aria-label="Default select example">
-
-
-                                                <option>Preguntas</option>
-
-
-                                            </select>
-                                        </div>
-
-
-                                        <hr>
-
-                                        <form [formGroup]="Region">
-
-                                            <div class="region">
-                                                <h5 class="text_region">Región</h5>
-
-                                                <select class="select_reg form-select my-select"
-                                                    aria-label="Default select example" formControlName="region">
-
-                                                    <option selected>Seleccionar Región</option>
-
-                                                    <option value="regionbsas" class="sec">Región Buenos Aires </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Avellaneda Lanús</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Buenos Aires</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Lomas de Zamora</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Merlo Moreno</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Morón</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Quilmes</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Isidro</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Justo</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Martin</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Miguel</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Zárate Campana</option>
-
-
-                                                    <option value="regioncentro" class="sec">Región Centro</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Córdoba </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Cruz del Eje </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp; Deán Funes</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Río Cuarto </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Francisco </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Villa María</option>
-
-
-                                                    <option value="regioncuyo" class="sec">Región Cuyo</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Mendoza </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Rafael </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Juan </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Luis </option>
-
-                                                    <option value="regionlitoral" class="sec">Región Litoral</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Concordia </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Gualeguaychú </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Paraná </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Rafael </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Rosario </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Nicolás </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santa Fé </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Venado Tuerto </option>
-
-
-                                                    <option value="regionNEA" class="sec">Región NEA</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Corrientes </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Formosa </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Goya</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Oberá </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Posadas </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Puerto Iguazú </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Reconquista </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Resistencia </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Roque </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santo Tomé </option>
-
-
-                                                    <option value="regionNOA" class="sec">Región NOA</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Añatuya </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Cafayate </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Catamarca</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Concepcion </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Huamahuaca </option>
-
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Jujuy</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;La Rioja</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Orán </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Salta</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Roque </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santiago del Estereo </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Tucumán</option>
-
-
-                                                    <option value="regionpatagonia" class="sec">Región Patagonia
-                                                    </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Alto Valle del Río Negro
-                                                    </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Comodoro Rivadavia </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Esquel</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Neuquén </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Río Gallegos </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;San Carlos de Bariloche</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Viedma</option>
-
-                                                    <option value="regionplatense" class="sec">Región Platense</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Azul </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Bahía Blanca </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Chascomús</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;La Plata </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Mar del Plata </option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Mercedes Luján</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Nueve de Julio</option>
-                                                    <option disabled>&nbsp;&nbsp;&nbsp;Santa Rosa</option>
-
-
-
-                                                    <option value="desarrolloinstitucional" class="sec">Desarrollo
-                                                        Institucional</option>
-                                                    <option value="desarrolloinfanciaeducacion" class="sec">Desarrollo
-                                                        de Infancia y Educación</option>
-                                                    <option value="relacionesinstitucionales" class="sec">Relaciones
-                                                        Institucionales</option>
-                                                </select>
-
-                                                <button class="buti mt-2">ASIGNAR
-                                                    REGIÓN</button>
-                                            </div>
-                                        </form>
-
-
-                                        <form [formGroup]="Diocesis">
-
-                                            <div [ngClass]="{disabled:Region.invalid}" class="region mt-3">
-                                                <h5 class="text_region">Diócesis</h5>
-
-                                                <select class="select_reg form-select"
-                                                    aria-label="Default select example" formControlName="diocesis">
-
-                                                    <option value="value" selected>Seleccionar Diócesis</option>
-                                                    <optgroup label="Región Buenos Aires">
-                                                        <option value="1" label="Avellaneda Lanús"> </option>
-                                                        <option value="1" label="Buenos Aires"> </option>
-                                                        <option value="1" label="Gregorio de Laferrere"> </option>
-                                                        <option value="1" label="Lomas de Zamora"> </option>
-                                                        <option value="1" label="Merlo Moreno"> </option>
-                                                        <option value="1" label="Morón "></option>
-                                                        <option value="1" label="Quilmes "></option>
-                                                        <option value="1" label="San Isidro"> </option>
-                                                        <option value="1" label="San Justo "></option>
-                                                        <option value="1" label="San Martin"> </option>
-                                                        <option value="1" label="San Miguel"> </option>
-                                                        <option value="1" label="Zárate Campana "></option>
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Centro">
-                                                        <option value="1" label="Córdoba"> </option>
-                                                        <option value="1" label="Cruz del Eje"> </option>
-                                                        <option value="1" label="Deán Funes"> </option>
-                                                        <option value="1" label="Río Cuarto"> </option>
-                                                        <option value="1" label="San Francisco"> </option>
-                                                        <option value="1" label="Villa María"></option>
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Cuyo">
-                                                        <option value="1" label="Mendoza"> </option>
-                                                        <option value="1" label="San Rafael"> </option>
-                                                        <option value="1" label="San Juan"> </option>
-                                                        <option value="1" label="San Luis"> </option>
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Litoral">
-                                                        <option value="1" label="Concordia"> </option>
-                                                        <option value="1" label="Gualeguaychú"> </option>
-                                                        <option value="1" label="Paraná"> </option>
-                                                        <option value="1" label="Rafael"> </option>
-                                                        <option value="1" label="Rosario"> </option>
-                                                        <option value="1" label="San Nicolás"> </option>
-                                                        <option value="1" label="Santa Fé"> </option>
-                                                        <option value="1" label="Venado Tuerto"> </option>
-                                                    </optgroup>
-
-
-                                                    <optgroup label="Región NEA">
-                                                        <option value="1" label="Corrientes"> </option>
-                                                        <option value="1" label="Formosa"> </option>
-                                                        <option value="1" label="Goya"> </option>
-                                                        <option value="1" label="Oberá"> </option>
-                                                        <option value="1" label="Posadas"> </option>
-                                                        <option value="1" label="Puerto Iguazú"> </option>
-                                                        <option value="1" label="Reconquista"> </option>
-                                                        <option value="1" label="Resistencia"> </option>
-                                                        <option value="1" label="San Roque"> </option>
-                                                        <option value="1" label="Santo Tomé"> </option>
-                                                        <option value="1" label="Santo Tomé"> </option>
-                                                    </optgroup>
-
-
-                                                    <optgroup label="Región NOA">
-                                                        <option value="1" label="Añatuya"> </option>
-                                                        <option value="1" label="Cafayate"> </option>
-                                                        <option value="1" label="Catamarca"> </option>
-                                                        <option value="1" label="Concepcion"> </option>
-                                                        <option value="1" label="Huamahuaca"> </option>
-                                                        <option value="1" label="Jujuy"> </option>
-                                                        <option value="1" label="La Rioja"> </option>
-                                                        <option value="1" label="Orán"> </option>
-                                                        <option value="1" label="Salta"> </option>
-                                                        <option value="1" label="Santiago del Estereo"> </option>
-                                                        <option value="1" label="Tucumán"> </option>
-                                                    </optgroup>
-
-
-                                                    <optgroup label="Región Patagonia">
-                                                        <option value="1" label="Alto Valle del Río Negro"> </option>
-                                                        <option value="1" label="Comodoro Rivadavia"> </option>
-                                                        <option value="1" label="Esquel"> </option>
-                                                        <option value="1" label="Neuquén"> </option>
-                                                        <option value="1" label="Río Gallegos"> </option>
-                                                        <option value="1" label="San Carlos de Bariloche"> </option>
-                                                        <option value="1" label="Viedma"> </option>
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Platense">
-                                                        <option value="1" label="Azul"> </option>
-                                                        <option value="1" label="Bahía Blanca"> </option>
-                                                        <option value="1" label="Chascomús"> </option>
-                                                        <option value="1" label="La Plata"> </option>
-                                                        <option value="1" label="Mar del Plata"> </option>
-                                                        <option value="1" label="Mercedes Luján"> </option>
-                                                        <option value="1" label="Nueve de Julio"> </option>
-                                                        <option value="1" label="Santa Rosa"> </option>
-                                                    </optgroup>
-
-                                                    <optgroup label="Desarrollo Institucional">
-
-                                                    </optgroup>
-                                                    <optgroup label="Desarrollo de Infancia y educación">
-
-
-                                                    </optgroup>
-                                                    <optgroup label="Relaciones Institucionales">
-
-                                                    </optgroup>
-
-                                                </select>
-                                                <button class="buti mt-2">ASIGNAR DIÓCESIS</button>
-                                            </div>
-
-                                        </form>
-                                        <hr>
-                                        <form [formGroup]="Diocesis">
-                                            <div [ngClass]="{disabled:Diocesis.invalid}" class="region" >
-                                                <h5 class="text_region">Estructura Organizativa</h5>
-
-                                                <select class="select_reg form-select"
-                                                    aria-label="Default select example">
-
-                                                    <option value="value" selected>Seleccionar Estructura Organizativa
-                                                    </option>
-                                                    <optgroup label="Región Buenos Aires">
-                                                        <option value="1" label="Avellaneda Lanús"> </option>
-                                                        <option value="1" label="Buenos Aires"> </option>
-                                                        <option value="1" label="Gregorio de Laferrere"> </option>
-                                                        <option value="1" label="Lomas de Zamora"> </option>
-                                                        <option value="1" label="Merlo Moreno"> </option>
-                                                        <option value="1" label="Morón "></option>
-                                                        <option value="1" label="Quilmes "></option>
-                                                        <option value="1" label="San Isidro"> </option>
-                                                        <option value="1" label="San Justo "></option>
-                                                        <option value="1" label="San Martin"> </option>
-                                                        <option value="1" label="San Miguel"> </option>
-                                                        <option value="1" label="Zárate Campana "></option>
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Centro">
-                                                        <option value="1" label="Córdoba"> </option>
-                                                        <option value="1" label="Cruz del Eje"> </option>
-                                                        <option value="1" label="Deán Funes"> </option>
-                                                        <option value="1" label="Río Cuarto"> </option>
-                                                        <option value="1" label="San Francisco"> </option>
-                                                        <option value="1" label="Villa María"></option>
-
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Cuyo">
-                                                        <option value="1" label="Mendoza"> </option>
-                                                        <option value="1" label="San Rafael"> </option>
-                                                        <option value="1" label="San Juan"> </option>
-                                                        <option value="1" label="San Luis"> </option>
-
-
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Litoral">
-                                                        <option value="1" label="Concordia"> </option>
-                                                        <option value="1" label="Gualeguaychú"> </option>
-                                                        <option value="1" label="Paraná"> </option>
-                                                        <option value="1" label="Rafael"> </option>
-                                                        <option value="1" label="Rosario"> </option>
-                                                        <option value="1" label="San Nicolás"> </option>
-                                                        <option value="1" label="Santa Fé"> </option>
-                                                        <option value="1" label="Venado Tuerto"> </option>
-
-
-                                                    </optgroup>
-
-
-                                                    <optgroup label="Región NEA">
-                                                        <option value="1" label="Corrientes"> </option>
-                                                        <option value="1" label="Formosa"> </option>
-                                                        <option value="1" label="Goya"> </option>
-                                                        <option value="1" label="Oberá"> </option>
-                                                        <option value="1" label="Posadas"> </option>
-                                                        <option value="1" label="Puerto Iguazú"> </option>
-                                                        <option value="1" label="Reconquista"> </option>
-                                                        <option value="1" label="Resistencia"> </option>
-                                                        <option value="1" label="San Roque"> </option>
-                                                        <option value="1" label="Santo Tomé"> </option>
-                                                        <option value="1" label="Santo Tomé"> </option>
-
-
-                                                    </optgroup>
-
-
-                                                    <optgroup label="Región NOA">
-                                                        <option value="1" label="Añatuya"> </option>
-                                                        <option value="1" label="Cafayate"> </option>
-                                                        <option value="1" label="Catamarca"> </option>
-                                                        <option value="1" label="Concepcion"> </option>
-                                                        <option value="1" label="Huamahuaca"> </option>
-                                                        <option value="1" label="Jujuy"> </option>
-                                                        <option value="1" label="La Rioja"> </option>
-                                                        <option value="1" label="Orán"> </option>
-                                                        <option value="1" label="Salta"> </option>
-                                                        <option value="1" label="Santiago del Estereo"> </option>
-                                                        <option value="1" label="Tucumán"> </option>
-
-
-                                                    </optgroup>
-
-
-                                                    <optgroup label="Región Patagonia">
-                                                        <option value="1" label="Alto Valle del Río Negro"> </option>
-                                                        <option value="1" label="Comodoro Rivadavia"> </option>
-                                                        <option value="1" label="Esquel"> </option>
-                                                        <option value="1" label="Neuquén"> </option>
-                                                        <option value="1" label="Río Gallegos"> </option>
-                                                        <option value="1" label="San Carlos de Bariloche"> </option>
-                                                        <option value="1" label="Viedma"> </option>
-
-
-                                                    </optgroup>
-
-                                                    <optgroup label="Región Platense">
-                                                        <option value="1" label="Azul"> </option>
-                                                        <option value="1" label="Bahía Blanca"> </option>
-                                                        <option value="1" label="Chascomús"> </option>
-                                                        <option value="1" label="La Plata"> </option>
-                                                        <option value="1" label="Mar del Plata"> </option>
-                                                        <option value="1" label="Mercedes Luján"> </option>
-                                                        <option value="1" label="Nueve de Julio"> </option>
-                                                        <option value="1" label="Santa Rosa"> </option>
-
-
-                                                    </optgroup>
-
-                                                    <optgroup label="Desarrollo Institucional">
-
-                                                    </optgroup>
-                                                    <optgroup label="Desarrollo de Infancia y educación">
-
-
-                                                    </optgroup>
-                                                    <optgroup label="Relaciones Institucionales">
-
-                                                    </optgroup>
-
-                                                </select>
-
-
-                                                <button class="buti mt-2">ASIGNAR
-                                                    ESTRUCTURA</button>
-                                            </div>
-                                        </form>
-
-                                        <hr>
-
-                                        <div class="region">
-                                            <h5 class="text_region">Tarea</h5>
-
-                                            <select class="select_reg form-select" aria-label="Default select example">
-
-                                                <option value="value" selected>Tareas</option>
-                                                <option value="UNA_HORA">holas</option>
-
-                                            </select>
-
-                                            <label class="text_region">Desde</label>
-                                            <input class="form-control buti_calend" type="date" placeholder="Desde">
-
-                                            <label class="text_region">Hasta</label>
-                                            <input class="form-control buti_calend" type="date" placeholder="Hasta">
-
-
-
-                                            <button class="buti mt-2">ASIGNAR TAREA</button>
-
-                                        </div>
-
-
-                                        <button class="buti_eliminar mt-3"
-                                            (click)="eliminarVoluntario(volunt.id)"><strong>ELIMINAR USUARIO</strong>
-                                        </button>
-
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <!------------------------------MODAL DE PREGUNTAS----------------------------------->
-
-                        <div class="modal fade mpreg" id="modalpreguntas" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-
-                                    <div class="modal-body">
-
-                                        <p>¿Te encontrás dentro de algun grupo de riesgo o convivis con personas que sí
-                                            lo estan?</p>
-                                        <h6>{{volunt.riesgo?'Si':'No'}}</h6>
-
-                                        <p>¿Perteneces a algún movimiento, organizacion o pastoral eclesial o social?
-                                            ¿Cuál?
-                                        </p>
-                                        <h6>{{volunt.movimiento?'Si':'No'}},&nbsp;{{volunt.agrupacion}}</h6>
-
-                                        <p>¿Tienes alguna enfermedad crónica o estas realizando algún tratamiento
-                                            médico?</p>
-                                        <h6>{{volunt.enfermedad?'Si':'No'}}</h6>
-
-
-                                        <p>¿Tienes cobertura médica?</p>
-                                        <h6>{{volunt.cobertura?'Si':'No'}}</h6>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <!------------------------------MODAL EDITAR ----------------------------------->
-
-                        <div class="modal fade m_editar" id="modaleditar" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <h3 class="text-center c">Editar Datos de Voluntarios</h3>
-                                        <form [formGroup]="personalDetails" class="c" id="msform" (ngSubmit)="enviar()">
-                                            <!-- fieldsets -->
-                                            <hr>
-                                            <h2 class="fs-title">Datos Principales</h2>
-                                            <div class="contenido_input mt-4">
-                                                <div class="clabel">
-                                                    <label>Nombre</label>
-                                                    <input type="text" formControlName="nombre" name="nombre"
-                                                        placeholder={{volunt.nombre}} />
-                                                </div>
-                                                <div class="clabel">
-                                                    <label>Apellido</label>
-                                                    <input type="text" formControlName="apellido" name="apellido"
-                                                        placeholder={{volunt.apellido}} />
-                                                </div>
-                                            </div>
-
-                                            <div class="contenido_input mt-4">
-                                                <div class="clabel">
-                                                    <label>DNI</label>
-                                                    <input type="number" formControlName="dni" name="dni"
-                                                        placeholder={{volunt.dni}} />
-                                                </div>
-
-
-                                                <div class="clabel">
-                                                    <label>Nacimiento</label>
-                                                    <input type="text" formControlName="nacimiento" name="nacimiento"
-                                                        placeholder={{volunt.nacimiento}} />
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="contenido_input mt-4">
-
-                                                <div class="clabel">
-                                                    <label>Telefono</label>
-                                                    <input type="text" formControlName="telefono" name="telefono"
-                                                        placeholder={{volunt.telefono}} />
-                                                </div>
-
-
-                                                <div class="clabel">
-                                                    <label>Email</label>
-                                                    <input type="text" formControlName="email" name="email"
-                                                        placeholder={{volunt.email}} />
-                                                </div>
-
-                                            </div>
-                                            <hr>
-
-                                            <h2 class="fs-title">Residencia</h2>
-
-                                            <div class="contenido_input">
-
-
-                                                <div class="clabel">
-                                                    <label>Provincia</label>
-                                                    <input type="text" formControlName="provincia"
-                                                        placeholder={{volunt.provincia}} />
-                                                </div>
-
-
-
-                                                <div class="clabel">
-                                                    <label>Ciudad</label>
-                                                    <input type="text" formControlName="residencia"
-                                                        placeholder={{volunt.residencia}} />
-                                                </div>
-
-
-                                            </div>
-
-                                            <div class="contenido_input">
-
-                                                <div class="clabel">
-                                                    <label>Direccion</label>
-                                                    <input type="text" formControlName="direccion"
-                                                        placeholder={{volunt.direccion}} />
-                                                </div>
-
-                                                <div class="clabel">
-                                                    <label>Ocupacion</label>
-                                                    <input type="text" formControlName="ocupacion"
-                                                        placeholder="{{volunt.ocupacion}}" />
-                                                </div>
-
-                                            </div>
-                                            <hr>
-
-
-                                            <div class="button_uno">
-                                                <input type="submit" name="next" class="next action-button mt-4"
-                                                    value="Actualizar" />
-                                            </div>
-
-
-                                        </form>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cerrar</button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                        <!-------  MODAL DISPONIBILIDAD ------->
-                        <div class="modal fade m_disponibilidad" id="modaldisponibilidad" tabindex="-1"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="volunt">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-
-                                    <div class="modal-body">
-
-                                        
-        <table class="tabler_volun table-hover">
-            <thead>
-              <tr>
-                <th class="text-center">Día</th>
-                <th class="text-center">1hs</th>
-                <th class="text-center">2hs </th>
-                <th class="text-center">3hs</th>
-                <th class="text-center">4hs</th>
-                <th class="text-center">+4hs</th>
-                <th class="text-center">No disp.</th>
-              </tr>
-            </thead>
-            <tbody>
-  
-              <tr>
-                <th>Lun</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="lunes" value="UNA_HORA" formControlName="lunes">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="lunes" value="DOS_HORAS" formControlName="lunes">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="lunes" value="TRES_HORAS" formControlName="lunes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="lunes" value="CUATRO_HORAS" formControlName="lunes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="lunes" value="MAS_DE_4_HORAS" formControlName="lunes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="lunes" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="lunes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-  
-  
-  
-  
-              </tr>
-  
-              <tr>
-                <th>Mar</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="martes" value="UNA_HORA" formControlName="martes">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="martes" value="DOS_HORAS" formControlName="martes">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="martes" value="TRES_HORAS" formControlName="martes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="martes" value="CUATRO_HORAS" formControlName="martes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="martes" value="MAS_DE_4_HORAS" formControlName="martes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="martes" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="martes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-  
-  
-  
-  
-              </tr>
-  
-  
-  
-  
-  
-              <tr>
-                <th>Mié</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="miercoles" value="UNA_HORA" formControlName="miercoles">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="miercoles" value="DOS_HORAS" formControlName="miercoles">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="miercoles" value="TRES_HORAS" formControlName="miercoles">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="miercoles" value="CUATRO_HORAS"
-                          formControlName="miercoles">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="miercoles" value="MAS_DE_4_HORAS"
-                          formControlName="miercoles">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="miercoles" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="miercoles">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-  
-              </tr>
-  
-              <tr>
-                <th>Jue</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="jueves" value="UNA_HORA" formControlName="jueves">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="jueves" value="DOS_HORAS" formControlName="jueves">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="jueves" value="TRES_HORAS" formControlName="jueves">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="jueves" value="CUATRO_HORAS" formControlName="jueves">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="jueves" value="MAS_DE_4_HORAS" formControlName="jueves">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="jueves" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="jueves">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-  
-              </tr>
-  
-              <tr>
-                <th>Vie</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="viernes" value="UNA_HORA" formControlName="viernes">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="viernes" value="DOS_HORAS" formControlName="viernes">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="viernes" value="TRES_HORAS" formControlName="viernes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="viernes" value="CUATRO_HORAS" formControlName="viernes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="viernes" value="MAS_DE_4_HORAS" formControlName="viernes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="viernes" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="viernes">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-  
-              </tr>
-  
-              <tr>
-                <th>Sáb</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="sabado" value="UNA_HORA" formControlName="sabado">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="sabado" value="DOS_HORAS" formControlName="sabado">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="sabado" value="TRES_HORAS" formControlName="sabado">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="sabado" value="CUATRO_HORAS" formControlName="sabado">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="sabado" value="MAS_DE_4_HORAS" formControlName="sabado">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="sabado" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="sabado">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-  
-              </tr>
-  
-  
-              <tr>
-                <th>Dom</th>
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="domingo" value="UNA_HORA" formControlName="domingo">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="domingo" value="DOS_HORAS" formControlName="domingo">
-  
-                      </span>
-                    </span>
-                  </label>
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="domingo" value="TRES_HORAS" formControlName="domingo">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="domingo" value="CUATRO_HORAS" formControlName="domingo">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-                <td>
-  
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="domingo" value="MAS_DE_4_HORAS" formControlName="domingo">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                </td>
-  
-                <td>
-  
-                  <label class="input-group mb-0">
-                    <span class="form-control btn">
-                      <span class="input-group-addon">
-                        <input class="mt-1" type="radio" name="domingo" value="NO_TENGO_DISPONIBILIDAD"
-                          formControlName="domingo">
-  
-                      </span>
-                    </span>
-                  </label>
-  
-                                                            </td>
-  
-  
-                                                      </tr>
-  
-   
-                                              </tbody>
-                                        </table>
-                                    </div>
-                                  
-                                </div>
-                            </div>
-                        </div>
-                    </tbody>
-                </table>
-
+              </div>
             </div>
-
-
+          </div>
         </div>
-    </div>
 
-    <router-outlet></router-outlet>
+
+
+      </td>
+
+    </ng-container>
+
+
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
 
 </div>
+
+<router-outlet></router-outlet>

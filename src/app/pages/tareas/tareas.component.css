@@ -1,3 +1,137 @@
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.0/css/font-awesome.css";
+
 .sube_sidebar_tareas{
-    margin-top: 22px;
+    margin-top: -22px;
 }
+
+.but_tarea{
+  
+    border-radius: 10px;
+    margin-left: 110px;
+    margin-top: -20px;
+    height: 40px;
+    width: 90px;
+    background-color: #5A71A6;
+  
+    color: rgb(255, 255, 255);
+}
+
+#searchform {
+    margin-top: -59px;
+    margin-left: 809px;
+    width: 276px;
+    height: 35px;
+    position: absolute;
+    display: inline;
+    font-size: 1em;
+    border-radius: 8em;
+    border: 0.1em solid #dad0be;
+    box-shadow: 0 0 0.3em rgb(60 60 60 / 40%);
+    padding: 0.3em;
+    background: white;
+}
+#s {
+    transition: all 0.2s ease-out;
+    width: 10px;
+    border-radius: 0;
+    box-shadow: none;
+    
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: red;
+    opacity: 0;
+}
+#s:focus {
+    width: 8em;
+    opacity: 1;
+}
+.t {
+    padding-left: 1px;
+    display: inline-block;
+    margin-top: 0.3em;
+    color: #dad0be;
+    text-shadow: 0 0 0.1em rgba(60,60,60,0.3);
+    position: relative;
+    left: 0.1em;
+    width: 40px;
+    margin-left: -30px;
+}
+
+.but_busca_tarea{
+    margin-top: -60px;
+    margin-left: 830px;
+    position: absolute;
+   
+}
+
+.but_b{
+    box-shadow: 0 0 0.3em rgb(60 60 60 / 40%);
+    border-radius: 11px;
+    outline: none;
+    width: 250px;
+    height: 35px;
+}
+
+  
+.contenido_input_tarea{
+    display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+   
+  }
+
+  .select_modalidad{
+    width: 468px;
+  }
+
+  .select_area{
+      width: 468px;
+  }
+
+.buti_eliminar
+{
+  margin-left: 20px;
+  width: 428px;
+  background-color:  #5A71A6;
+  border-radius: 10px;
+  color: white;
+  border: solid 1px #5A71A6;
+  height: 40px;
+
+}
+
+
+.desplaza{
+    margin-left: 20px;
+  }
+
+  .redondo_t{
+   
+        position: absolute;
+        margin-left: 390px;
+        background: #EBEBEB;;
+        width: 74px;
+        border-radius: 100px;
+        height: 44px;
+        margin-top: 7px;
+  }
+
+  .lapiz_t{
+    position: absolute;
+    margin-top: -52px;
+    margin-left:  312px;
+  }
+
+  .tabli_tarea{
+   
+    width: 100% !important;
+    margin-left: 10px;
+    
+  }
+  
+
+  .arbol{
+    font-size: medium;
+    margin-left: 20px;
+  }

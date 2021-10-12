@@ -1,0 +1,40 @@
+.sub{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border: solid 2px white;
+    border-radius: 10px;
+    width: 600px;
+    height: 280px;
+    margin-left: 270px;
+    margin-top: 200px;
+}
+
+.b_login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
+
+  .tl{
+   
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #0C2868;
+    margin-left: -20px;
+    margin-top: -10px;
+  }
+
+    
+  .t_sesion{
+    position: absolute;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 70px;
+    margin-left: 90px;
+    font-weight: 400;
+    color: #979797;
+
+  }

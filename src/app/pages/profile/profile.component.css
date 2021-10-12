@@ -1,3 +1,71 @@
 .sube_sidebar{
-    margin-top: -40px;
+    margin-top: -30px !important;
 }
+
+
+.sube_sidebar_home{
+    position: absolute;
+    margin-top: 70px;
+  }
+
+  .pr_caja {
+    display: flex;
+    flex-direction: row;
+    background-color: #EFEFF3;
+    height: 800px;
+    width: 1156px;
+    margin-left: 64px;
+  }
+
+  .caja_bienvenida{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    width: 550px;
+    margin-top: 30px;
+    margin-left: 34px;
+    height: 200px;
+    border-radius: 8px;
+    box-shadow: 1px 3px 3px rgb(160, 156, 156);
+    color: rgb(101, 110, 170);
+  
+  }
+
+  .imn_h{
+    border-radius: 150px;
+      width: 120px;
+      height: 120px;
+      margin-top: 40px;
+  }
+
+  .tabla_uno{
+    background-color: rgb(255, 255, 255);
+    width:550px;
+    position:relative;
+    margin-top: 250px;
+     height: 420px !important;
+    margin-left: 35px;
+    border-radius: 10px;
+    }
+    
+    .c{
+        color: rgb(0, 0, 0);
+    }
+
+    .fuente_sanl{
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 400;
+      }
+
+      .tabla_dos{
+        background-color: rgb(255, 255, 255);
+      width:500px;
+      position:relative;
+      margin-top: 30px;
+      height: 700px;
+      margin-left: 25px;
+      border-radius: 10px;
+    
+      }

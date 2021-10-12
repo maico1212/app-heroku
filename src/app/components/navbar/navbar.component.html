@@ -1,6 +1,5 @@
 <div *ngIf="auth.user | async as user">
-  <header>
-    <div class="caja_navbar">
+  
 
       <nav class="navbar navbar-expand-lg">
 
@@ -29,7 +28,6 @@
 
 
         
-        <h5 class="cb tt mt-2">¡Bienvenid@ {{ user.displayName }}! </h5>
         
         <div class="contlist">
 
@@ -42,8 +40,7 @@
             <mat-icon class="cb" style="cursor: pointer;" (click)="logout()">logout</mat-icon>
         </div>
       </nav>
-    </div>
-  </header>
+    
   <router-outlet></router-outlet>
 
 

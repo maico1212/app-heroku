@@ -9,5 +9,6 @@ export const environment = {
     appId: "1:531164709682:web:1bf2b521d03a06eace0d2b",
     measurementId: "G-2S5SF20HC9"
   },
-  apiEndpoint:"https://caritas-pruebas.herokuapp.com"
+  apiEndpoint: "https://caritas-pruebas.herokuapp.com",
+ 
 };

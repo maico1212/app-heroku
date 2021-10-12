@@ -20,8 +20,10 @@ import { VoluntariosService } from 'src/app/services/voluntarios.service';
 })
 export class RegisterComponent implements OnInit {
   
-  public authorities: FormArray;
+  provincias = ['Buenos Aires','CABA','Catamarca','Chaco','Chubut','Córdoba','Corrientes','Entre Rios','Formosa','Jujuy','La Pampa',
+  'La Rioja','Mendoza','Misiones','Neuquén','Río Negro','Salta','San Juan','San Luis','Santa Cruz','Santa Fe','Santiago del Estereo','Tucuman'];
 
+  public authorities: FormArray;
   personalDetails: FormGroup;
   addressDetails: FormGroup;
   empleadoDetails: FormGroup;
@@ -53,21 +55,21 @@ export class RegisterComponent implements OnInit {
             email: ['', Validators.required],
             dni: ['',Validators.required],
             nacimiento: ['', Validators.required],
-            telefono: ['', Validators.required]
-
+            telefono: ['', Validators.required],
+            ocupacion: ['', Validators.required]
+           // edad: ['',Validators.required]
         });
         this.addressDetails = this.formBuilder.group({
             provincia: ['', Validators.required],
             residencia: ['', Validators.required],
             direccion: ['',Validators.required],
-            ocupacion: ['', Validators.required]
+       //     movimiento: ['', Validators.required],
+            agrupacion: ['', Validators.required]
         });
 
          
       this.preguntasDetails = this.formBuilder.group({
-        riesgo: ['', Validators.required],
-        movimiento: ['', Validators.required],
-         agrupacion: ['', Validators.required],
+        riesgo: ['', Validators.required],   
         enfermedad: ['',Validators.required],
         cobertura: ['',Validators.required]
     }); 
@@ -96,6 +98,8 @@ export class RegisterComponent implements OnInit {
    get preguntas(){ return this.empleadoDetails.controls;}
   
  
+
+  
   
   next(){
     if(this.step==1){
@@ -165,44 +169,21 @@ export class RegisterComponent implements OnInit {
     });
 
   }
-}
 
-  /*
-  isLinear = false;
-  firstFormGroup!:FormGroup ;
+  bandera : any = true;
+
+  habilita(valor:any)
+  {
  
-  constructor(private _formBuilder: FormBuilder) {}
-
-
-  ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      name: ['', Validators.required],
-      apellido: ['', Validators.required],
-      documento: ['', Validators.required],
-      telefono:['', Validators.required],
-      calendario:['',Validators.required],
-      email:['',Validators.required],
-      provincia:['', Validators.required],
-      riesgo:['', Validators.required],
-      pertenece:['',Validators.required],
-      salud:['',Validators.required],
-      cobertura:['', Validators.required],
-      experiencia:['', Validators.required],
-      movilidad:['', Validators.required],
-      localidad:['', Validators.required],
-      direccion:['', Validators.required],
-      ocupacion:['', Validators.required],
-      hobby:['', Validators.required]
-      
-
-    });
-
-  
-  }
-
-  enviar(){
-    console.log(this.firstFormGroup.value);
-  }
+     console.log(valor.target.value);
+     if(valor.target.value == true){
+       
+      this.bandera = true;
     
-*/
+     }else{
+       this.bandera = null;
+     }
+ 
+  }
 
+}

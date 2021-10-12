@@ -1,0 +1,298 @@
+input .input{
+    width: 210px;
+    height: 60px;
+    border-style: solid 1px rgb(189, 172, 22);
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+
+
+
+.input_correo_editar{
+  width: 500px;
+  height: 60px;
+  
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 40px;
+
+}
+
+
+.contenido_input{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+  }
+
+  .button_uno{
+ 
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -18px;
+  
+}
+
+
+
+.contenido_select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 50px;
+  
+  }
+
+
+  .contenido_input_cual{
+    display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 12px;
+      margin-left: 20x;
+      width:260px;
+  }
+
+  .example-margin {
+    margin: 0 10px;
+  }
+
+  .cont_check{
+      display: flex;
+    flex-direction:row;
+    margin-left: 109px;
+    margin-top: -20px;
+  }
+
+  .button_dos{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 28px;
+    width: 372px;
+    margin-left: 64px;
+  }
+
+  .button_tres{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 372px;
+    margin-top: 46px;
+    margin-left: 64px;
+  
+  }
+
+  
+.button_cuatro{
+    display: flex;
+    flex-direction: row;
+    margin-left: 64px;
+    justify-content: center;
+    margin-top: 38px;
+    width: 372px;
+  
+  }
+
+  .md-roweapr{
+    display: flex;
+    flex-direction: row;
+   margin-left: -105px;
+  }
+
+  .table_disponibilidad{
+    margin-top: -15px !important;
+      position: absolute;
+    width: 500px !important;
+    margin-left: 0px !important;
+   
+  }
+
+  
+
+
+.button_cinco{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 322px;
+  margin-top: 322px !important;
+  margin-left: 89px !important;
+
+}
+
+mat-form-field{
+  border-color: black !important;
+}
+
+.contlist{
+   
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  height: 110px;
+  margin-top: -5px;
+  padding: 30px;
+}
+
+.font_pr{
+
+  font-family: 'Roboto', sans-serif;
+  font-size: medium;
+}
+
+/*headings*/
+.fs-title {
+
+  font-size: 18px;
+  
+  color: #000000;
+  margin-bottom: 10px;
+ 
+  font-weight: bold;
+}
+
+
+.input_correo{
+  width: 434px;
+  height: 60px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 40px;
+
+}
+
+#msform .action-button-previous {
+  width: 100px;
+  background: #e4e0e0;
+  font-weight: bold;
+  color: #AB1D22;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+
+#msform .action-button {
+  width: 100px;
+  background: #AB1D22;
+  width: 160px;
+  height: 50px;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+  line-height: 19px;
+  font-style: normal;
+ font-weight: 600;
+ font-size: 16px; 
+ line-height: 19px;
+font-family: 'Inter', sans-serif;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+  box-shadow: 0 0 0 2px rgb(163, 11, 11), 0 0 0 3px #ee0979;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+  box-shadow: 0 0 0 2px rgb(177, 19, 19), 0 0 0 3px #C5C5F1;
+}
+
+.fs-subtitle {
+  font-weight: normal;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {
+  margin-bottom: 30px;
+  overflow: hidden;
+  background-color:white;
+  height: 115px;
+  border-radius: 15px;
+ 
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+}
+#progressbar li {
+  
+  list-style-type: none;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  width: 19.33%;
+  float: left;
+  position: relative;
+  letter-spacing: 0px;
+  margin-top: 20px;
+}
+#progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  line-height: 31px;
+  display: block;
+  font-size: 14px;
+  color: rgb(126, 11, 11);
+  background: rgb(126, 11, 11);
+  border-radius: 25px;
+  margin: 0 auto 10px auto;
+}
+/*progressbar connectors*//*LINEA*/
+#progressbar li:after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  background: rgb(126, 11, 11) !important;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+  /*connector not needed before the first step*/
+  
+  content: none;
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+  background: #bd1717 !important;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+#progressbar li.inactive:before{
+  background: #aab1a3;
+  color: rgb(255, 255, 255);
+  text-align: center;
+
+
+}
+
+
+.contenido_input_salud{
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
+    margin-left: 20x;
+    width:102px;
+}

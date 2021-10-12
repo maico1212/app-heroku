@@ -14,7 +14,9 @@ export const environment = {
     measurementId: "G-2S5SF20HC9",
   
   },
-  apiEndpoint: "https://caritas-pruebas.herokuapp.com"
+  apiEndpoint: "https://caritas-pruebas.herokuapp.com",
+ 
+  
   /*constante global, se puede llamar en cualquier lugar.*/
   
 };
